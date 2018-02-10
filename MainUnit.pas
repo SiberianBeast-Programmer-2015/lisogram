@@ -16,18 +16,20 @@ type
     CheckBox3: TCheckBox;
     Variant4: TEdit;
     CheckBox4: TCheckBox;
-    Button1: TButton;
+    ButtonCheck: TButton;
     ThemeLabel: TLabel;
-    Button2: TButton;
+    buttonHelp: TButton;
     QueryLabel: TLabel;
     Animate1: TAnimate;
     Image1: TImage;
     Button3: TButton;
     Memo1: TMemo;
+    variant5: TEdit;
+    CheckBox5: TCheckBox;
     procedure FormCreate(Sender: TObject);
-    procedure Button1Click(Sender: TObject);
+    procedure ButtonCheckClick(Sender: TObject);
     procedure Button3Click(Sender: TObject);
-    procedure Button2Click(Sender: TObject);
+    procedure buttonHelpClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -37,7 +39,8 @@ const testName = 'data\test.txt';
 var
   Form1: TForm1;
   list: TStringList;
-  zadania: array [1..20] of TStringList;
+  zadania: array of TStringList;
+  currZadanie: integer;
   answer: string;   themeName: string;
 implementation
 
@@ -53,69 +56,76 @@ implementation
 варианты
 ответ
 }
-procedure testOne(list: TStringList);
+
+procedure readTest(testFile: string); // разделим на прочтение вопросов циклично
+var i,n: integer; func,element: string;
+begin
+  With Form1 do begin 
+    list := TStringList.Create;
+    list.LoadFromFile(testFile);
+
+    themeName := getInfo(list[0]);
+    ThemeLabel.Caption := themeName;
+
+    n := 1;
+    SetLength(zadania,n+1);
+    zadania[n] := TStringList.Create;
+    for i := 2 to list.count - 1 do
+    begin
+      element := Trim(list[i]);
+      if element = '---' then
+      begin
+        Inc(n);
+        SetLength(zadania,n+1);
+        zadania[n] := TStringList.Create;
+      end
+      else
+      begin
+        zadania[n].Add(element);
+        Memo1.Lines.Add(IntToStr(n) + ' = ' + element);
+      end;
+    end; 
+    list.Free;
+    list := nil;
+  end; //end with
+{на выходе имеем структурированный массив заданий}
+end;
+
+procedure loadTest(number: integer);
 var i: integer; var func,element: string;
 begin
-with form1 do 
-begin
-  for i := 0 to list.Count - 1 do
+  with form1 do 
   begin
-    // iterate for every line
-    func := getFunction(list[i]);
-    element := getInfo(list[i]);
-    if  func = 'тема' then
-      ThemeLabel.Caption := 'Тема: ' + element;
-    if func = 'вопрос' then
-      QueryLabel.Caption := element;
-    if func = 'вариант1' then
-      Variant1.Text := element;
-    if func = 'вариант2' then
-      Variant2.Text := element;
-    if func = 'вариант3' then
-      Variant3.Text := element;
-    if func = 'вариант4' then
-      Variant4.Text := element;
-    if func = 'правильныйвариантномер' then     
-      answer := element;
-  end;
-end;
-end;
-procedure readTest(testFile: string); // разделим на прочтение вопросов циклично
-var i,n: integer; {// iter}var func,element: string;
-begin
-With Form1 do begin 
-  list := TStringList.Create;
-  list.LoadFromFile(testFile);
-
-  themeName := getInfo(list[0]);
-  ThemeLabel.Caption := themeName;
-
-  n := 1;
-  zadania[n] := TStringList.Create;
-  for i := 2 to list.count - 1 do
-  begin
-    element := Trim(list[i]);
-    if element = '---' then
+    for i := 0 to zadania[number].Count - 1 do
     begin
-      Inc(n);
-      zadania[n] := TStringList.Create;
-    end
-    else
-    begin
-      zadania[n].Add(element);
-      Memo1.Lines.Add(IntToStr(n) + ' = ' + element);
+      func := getFunction(zadania[number][i]);
+      element := getInfo(zadania[number][i]);
+      if  func = 'тема' then
+        ThemeLabel.Caption := 'Тема: ' + element;
+      if func = 'вопрос' then
+        QueryLabel.Caption := element;
+      if func = 'вариант1' then
+        Variant1.Text := element;
+      if func = 'вариант2' then
+        Variant2.Text := element;
+      if func = 'вариант3' then
+        Variant3.Text := element;
+      if func = 'вариант4' then
+        Variant4.Text := element;
+      if func = 'вариант5' then
+        Variant5.Text := element;
+      if func = 'правильныйвариантномер' then     
+        answer := element;
     end;
-  end; 
-  
-  list.Free;
-  list := nil;
-end; //end with
-{на выходе имеем структурированный массив заданий}
+  end;
 end;
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
-  readTest(appPath + testName);
+  buttonHelp.Visible := false;
+  currZadanie := 1;
+  readTest(appPath + testName); // whole test to read
+  loadTest(currZadanie); // fill first
 end;
 
 function getUserAnswerString(): string;
@@ -133,12 +143,52 @@ begin
   Result := s;
 end;
 
-procedure TForm1.Button1Click(Sender: TObject);
+procedure testIsFinished();
+begin
+  form1.ButtonCheck.Enabled := false;
+  showMessage('Выполните действие по окончании теста');
+end;
+
+procedure doIfRightAnswer();
+begin
+  form1.buttonHelp.Visible := false;
+  // ++ curr zadanie if right
+  if currZadanie = Length(zadania) - 1 then
+  begin
+    testIsFinished();
+    exit;
+  end
+  else
+    Inc(currZadanie);
+  with form1 do
+  begin
+    variant1.Text := '';
+    variant2.Text := '';
+    variant3.Text := '';
+    variant4.Text := '';
+    variant5.Text := '';
+    
+    CheckBox1.Checked := false;
+    CheckBox2.Checked := false;
+    CheckBox3.Checked := false;
+    CheckBox4.Checked := false;
+    CheckBox5.Checked := false;
+  end;
+  loadTest(currZadanie);
+end;
+
+procedure doIfFalseAnswer();
+begin
+  Form1.buttonHelp.Visible := true;
+  ShowMessage('Ответ неверен, обратитесь к справке');
+end;
+
+procedure TForm1.ButtonCheckClick(Sender: TObject);
 begin
    if Trim(getUserAnswerString) = Trim(answer) then
-    ShowMessage('Верно!')
+    doIfRightAnswer()
    else
-    SHowMessage('Неверно! посмотрите справку!');
+    doIfFalseAnswer();
 end;
 
 procedure TForm1.Button3Click(Sender: TObject);
@@ -162,7 +212,7 @@ begin
   
 end;
 
-procedure TForm1.Button2Click(Sender: TObject);
+procedure TForm1.buttonHelpClick(Sender: TObject);
 begin
   ShowMessage('Здеся была справка');
 end;
