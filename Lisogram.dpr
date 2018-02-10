@@ -2,7 +2,8 @@ program Lisogram;
 
 uses
   Forms,
-  MainUnit in 'MainUnit.pas' {Form1};
+  MainUnit in 'MainUnit.pas' {Form1},
+  helpUnit in 'helpUnit.pas';
 
 {$R *.res}
 
