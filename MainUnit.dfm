@@ -1,8 +1,8 @@
 object Form1: TForm1
-  Left = 218
-  Top = 93
+  Left = 209
+  Top = 2
   Width = 870
-  Height = 670
+  Height = 689
   Caption = #1051#1048#1057#1054#1043#1056#1040#1052
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -28302,23 +28302,23 @@ object Form1: TForm1
     ParentFont = False
     TabOrder = 7
   end
-  object Button1: TButton
+  object ButtonCheck: TButton
     Left = 264
-    Top = 584
+    Top = 616
     Width = 75
     Height = 25
     Caption = #1055#1088#1086#1074#1077#1088#1082#1072
     TabOrder = 8
-    OnClick = Button1Click
+    OnClick = ButtonCheckClick
   end
-  object Button2: TButton
+  object buttonHelp: TButton
     Left = 656
-    Top = 584
+    Top = 616
     Width = 75
     Height = 25
-    Caption = 'help link'
+    Caption = 'HELP ME'
     TabOrder = 9
-    OnClick = Button2Click
+    OnClick = buttonHelpClick
   end
   object Animate1: TAnimate
     Left = 24
@@ -28340,10 +28340,40 @@ object Form1: TForm1
   end
   object Memo1: TMemo
     Left = 8
-    Top = 80
+    Top = 64
     Width = 185
     Height = 305
     ScrollBars = ssVertical
     TabOrder = 12
+  end
+  object variant5: TEdit
+    Left = 152
+    Top = 576
+    Width = 689
+    Height = 33
+    AutoSize = False
+    Font.Charset = RUSSIAN_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -19
+    Font.Name = 'Times New Roman'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 13
+    Text = 'variant5'
+  end
+  object CheckBox5: TCheckBox
+    Left = 40
+    Top = 576
+    Width = 97
+    Height = 41
+    Caption = '5'
+    Constraints.MaxHeight = 100
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -24
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 14
   end
 end
