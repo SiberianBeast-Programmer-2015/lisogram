@@ -59,7 +59,7 @@ object Form1: TForm1
     Width = 185
     Height = 305
     ScrollBars = ssVertical
-    TabOrder = 11
+    TabOrder = 10
   end
   object Variant1: TEdit
     Left = 152
