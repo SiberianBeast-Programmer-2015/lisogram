@@ -125,14 +125,14 @@ end;
 procedure QueryBgImageLoad();
 var bm: TBitmap;
 begin
-bm := TBitmap.Create();
+  bm := TBitmap.Create();
   bm.LoadFromFile(appPath + 'data\bgImage.bmp');
-with form1 do
-begin
+  with form1 do
+  begin
     Image1.Proportional := false;
     Image1.Stretch := true;
     Image1.Picture.Assign(bm);
-end;
+  end;
 end;
 
 procedure loadVideo();
