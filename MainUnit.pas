@@ -135,9 +135,19 @@ begin
 end;
 end;
 
+procedure loadVideo();
+begin
+  with Form1 do
+  begin
+    WindowsMediaPlayer1.uiMode := 'none';
+    memo1.lines.add('start loading');
+    WindowsMediaPlayer1.URL := appPath + 'data\1.avi'; 
+  end;
+end;
 procedure TForm1.FormCreate(Sender: TObject);
 begin
-  QueryBgImageLoad();
+  loadVideo;
+  QueryBgImageLoad(); // bg image for query clause
   buttonHelp.Visible := false;
   currZadanie := 1;
   readTest(appPath + testName); // whole test to read
@@ -208,19 +218,7 @@ end;
 
 procedure TForm1.buttonHelpClick(Sender: TObject);
 begin
-  ShowMessage('Здеся была справка');
-end;
-
-procedure TForm1.WindowsMediaPlayer1EndOfStream(ASender: TObject;
-  Result: Integer);
-begin
-  showmessage('stop!');
-end;
-
-procedure TForm1.WindowsMediaPlayer1MediaChange(ASender: TObject;
-  const Item: IDispatch);
-begin
-  //showmessage('media changed');
+  ShowMessage('Здесь была справка');
 end;
 
 procedure TForm1.WindowsMediaPlayer1PlayStateChange(ASender: TObject;
