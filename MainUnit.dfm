@@ -54,8 +54,8 @@ object Form1: TForm1
     Height = 241
   end
   object Memo1: TMemo
-    Left = 8
-    Top = 64
+    Left = 856
+    Top = 72
     Width = 185
     Height = 305
     ScrollBars = ssVertical
@@ -198,16 +198,6 @@ object Form1: TForm1
     Caption = 'HELP ME'
     TabOrder = 9
     OnClick = buttonHelpClick
-  end
-  object Button3: TButton
-    Left = 768
-    Top = 104
-    Width = 81
-    Height = 89
-    Caption = #1053#1072#1083#1077#1087#1080#1090#1100' '#1090#1077#1082#1089#1090' '#1085#1072' '#1082#1072#1088#1090#1080#1085#1082#1091
-    TabOrder = 10
-    WordWrap = True
-    OnClick = Button3Click
   end
   object variant5: TEdit
     Left = 152
