@@ -191,25 +191,35 @@ begin
     doIfFalseAnswer();
 end;
 
-procedure TForm1.Button3Click(Sender: TObject);
-var cx,cy,h,w: integer;
+procedure setText(Canva: TCanvas; text: string);
+var
+  cx,cy: integer;
 begin
-  cx := Image1.Width div 2;
-  cy := Image1.Height div 2;  
+  Canva.Brush.Style := bsSolid;
+  Canva.Brush.Color := clRed;
+  Canva.Font.Size := 14;
+  cy := cy + Canva.TextExtent('s').cy;
+  cx := cx - Canva.TextExtent('s').cx;
   
-  Image1.Canvas.Brush.Style := bsSolid;
-  Image1.Canvas.Brush.Color := clRed;
-  Image1.Canvas.Font.Size := 14;
-  cy := cy + Image1.Canvas.TextExtent('s').cy;
-  cx := cx - Image1.Canvas.TextExtent('s').cx;
-  h := Image1.Canvas.TextExtent('s').cy;
-  w := Image1.Canvas.TextExtent('s').cx;
-  //cx := cx div 4;
-  //cy := cy div 4;
-  ShowMessage(IntToStr(Image1.width div w));
-  Image1.Canvas.TextOut(cx,cy,'Я нерпа-нерпа и уже не косяк'); // textRect
-  Image1.Canvas.TextOut(cx,cy+h,'Я нерпа-нерпа и уже не косяк'); // textRect
-  
+  Canva.TextOut(0,0,text); // textRect
+end;
+
+procedure TForm1.Button3Click(Sender: TObject);
+const scale = true;
+var h,w: integer;
+bm: TBitmap;
+begin
+  bm := TBitmap.Create();
+  bm.LoadFromFile(appPath + 'data\bgImage.bmp');
+  if scale then 
+  begin
+    h := image1.Height*100 div bm.Height;
+    w := image1.Width *100 div bm.Width;
+    h := (h+w) div 2;
+    ScalePercentBmp(bm,-h);
+    Image1.Picture.Assign(bm);
+  end; 
+  setText(Image1.Canvas,'i am');
 end;
 
 procedure TForm1.buttonHelpClick(Sender: TObject);
