@@ -22,7 +22,6 @@ type
     buttonHelp: TButton;
     QueryLabel: TLabel;
     Image1: TImage;
-    Memo1: TMemo;
     variant5: TEdit;
     CheckBox5: TCheckBox;
     WindowsMediaPlayer1: TWindowsMediaPlayer;
@@ -32,6 +31,8 @@ type
     procedure WindowsMediaPlayer1PlayStateChange(ASender: TObject;
       NewState: Integer);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+    procedure WindowsMediaPlayer1OpenStateChange(ASender: TObject;
+      NewState: Integer);
   private
     { Private declarations }
   public
@@ -44,6 +45,7 @@ var
   zadania: array of TStringList;
   currZadanie: integer;
   answer: string;   themeName: string;
+  startLeft,startTop: integer; // WMP unknown behavior
 implementation
 
 {$R *.dfm}
@@ -84,7 +86,7 @@ begin
       else
       begin
         zadania[n].Add(element);
-        Memo1.Lines.Add(IntToStr(n) + ' = ' + element);
+        //Memo1.Lines.Add(IntToStr(n) + ' = ' + element);
       end;
     end; 
     list.Free;
@@ -141,14 +143,18 @@ begin
   begin
     WindowsMediaPlayer1.uiMode := 'none';
     WindowsMediaPlayer1.settings.volume := 100;
-    memo1.lines.add('start loading');
+    //memo1.lines.add('start loading');
     WindowsMediaPlayer1.URL := appPath + 'data\1.avi'; 
   end;
 end;
 procedure TForm1.FormCreate(Sender: TObject);
 begin
-  loadVideo;
+  startLeft := WindowsMediaPlayer1.Left;
+  startTop := WindowsMediaPlayer1.Top;
   QueryBgImageLoad(); // bg image for query clause
+  
+  loadVideo;
+  
   buttonHelp.Visible := false;
   currZadanie := 1;
   readTest(appPath + testName); // whole test to read
@@ -226,9 +232,11 @@ procedure TForm1.WindowsMediaPlayer1PlayStateChange(ASender: TObject;
   NewState: Integer);
 begin
   try
+    WindowsMediaPlayer1.Left := startLeft;
+    WindowsMediaPlayer1.Top := startTop;
     if (newstate = 1) then
       WindowsMediaPlayer1.controls.play; 
-    memo1.Lines.add('state changed - ' + inttostr(newState));
+    //memo1.Lines.add('state changed - ' + inttostr(newState));
   except
   end;
 end;
@@ -237,6 +245,14 @@ procedure TForm1.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
   WindowsMediaPlayer1.controls.stop; // avoid exceptions
   WindowsMediaPlayer1.close;
+end;
+
+procedure TForm1.WindowsMediaPlayer1OpenStateChange(ASender: TObject;
+  NewState: Integer);
+begin
+  //showmessage(IntToStr(newState));
+  WindowsMediaPlayer1.Left := startLeft;
+  WindowsMediaPlayer1.Top := startTop;
 end;
 
 end.
