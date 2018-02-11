@@ -134,10 +134,23 @@ begin
   end;
 end;
 
+procedure QueryBgImageLoad();
+var bm: TBitmap;
+begin
+bm := TBitmap.Create();
+  bm.LoadFromFile(appPath + 'data\bgImage.bmp');
+with form1 do
+begin
+    Image1.Proportional := false;
+    Image1.Stretch := true;
+    Image1.Picture.Assign(bm);
+end;
+end;
+
 procedure TForm1.FormCreate(Sender: TObject);
 begin
   WindowsMediaPlayer1.uiMode := 'none';
-
+  QueryBgImageLoad();
   buttonHelp.Visible := false;
   currZadanie := 1;
   readTest(appPath + testName); // whole test to read
@@ -205,39 +218,6 @@ begin
     doIfRightAnswer()
    else
     doIfFalseAnswer();
-end;
-
-procedure setText(Canva: TCanvas; text: string);
-var
-  cx,cy: integer;
-begin
-  Canva.Brush.Style := bsSolid;
-  Canva.Brush.Color := clRed;
-  Canva.Font.Size := 14;
-  cy := cy + Canva.TextExtent('s').cy;
-  cx := cx - Canva.TextExtent('s').cx;
-  
-  Canva.TextOut(0,0,text); // textRect
-end;
-
-procedure TForm1.Button3Click(Sender: TObject);
-const scale = false;
-var h,w: integer;
-bm: TBitmap;
-begin
-  bm := TBitmap.Create();
-  bm.LoadFromFile(appPath + 'data\bgImage.bmp');
-  if scale then 
-  begin
-    h := image1.Height*100 div bm.Height;
-    w := image1.Width *100 div bm.Width;
-    h := (h+w) div 2;
-    ScalePercentBmp(bm,-h);
-    Image1.Picture.Assign(bm);
-  end
-  else
-    Image1.Picture.Assign(bm); 
-  setText(Image1.Canvas,'i am');
 end;
 
 procedure TForm1.buttonHelpClick(Sender: TObject);
