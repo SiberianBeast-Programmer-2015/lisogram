@@ -1,6 +1,6 @@
 object Form1: TForm1
-  Left = 209
-  Top = 2
+  Left = 270
+  Top = 150
   Width = 870
   Height = 689
   Caption = 'Test player'
@@ -11,6 +11,7 @@ object Form1: TForm1
   Font.Name = 'MS Sans Serif'
   Font.Style = []
   OldCreateOrder = False
+  OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
@@ -198,21 +199,13 @@ object Form1: TForm1
     TabOrder = 9
     OnClick = buttonHelpClick
   end
-  object Animate1: TAnimate
-    Left = 24
-    Top = 104
-    Width = 169
-    Height = 201
-    Color = clActiveCaption
-    ParentColor = False
-  end
   object Button3: TButton
     Left = 768
     Top = 104
     Width = 81
     Height = 89
     Caption = #1053#1072#1083#1077#1087#1080#1090#1100' '#1090#1077#1082#1089#1090' '#1085#1072' '#1082#1072#1088#1090#1080#1085#1082#1091
-    TabOrder = 11
+    TabOrder = 10
     WordWrap = True
     OnClick = Button3Click
   end
@@ -228,7 +221,7 @@ object Form1: TForm1
     Font.Name = 'Times New Roman'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 13
+    TabOrder = 12
     Text = 'variant5'
   end
   object CheckBox5: TCheckBox
@@ -244,6 +237,50 @@ object Form1: TForm1
     Font.Name = 'MS Sans Serif'
     Font.Style = []
     ParentFont = False
+    TabOrder = 13
+  end
+  object Button1: TButton
+    Left = 200
+    Top = 288
+    Width = 75
+    Height = 25
+    Caption = 'Button1'
     TabOrder = 14
+    OnClick = Button1Click
+  end
+  object WindowsMediaPlayer1: TWindowsMediaPlayer
+    Left = 56
+    Top = 16
+    Width = 245
+    Height = 240
+    TabOrder = 15
+    OnPlayStateChange = WindowsMediaPlayer1PlayStateChange
+    OnEndOfStream = WindowsMediaPlayer1EndOfStream
+    OnMediaChange = WindowsMediaPlayer1MediaChange
+    ControlData = {
+      000300000800000000000500000000000000F03F030000000000050000000000
+      0000000008000200000000000300010000000B00FFFF0300000000000B00FFFF
+      08000200000000000300320000000B00000008000A000000660075006C006C00
+      00000B0000000B0000000B00FFFF0B00FFFF0B00000008000200000000000800
+      020000000000080002000000000008000200000000000B00000052190000CE18
+      0000}
+  end
+  object Button2: TButton
+    Left = 760
+    Top = 224
+    Width = 75
+    Height = 25
+    Caption = 'Button2'
+    TabOrder = 16
+    OnClick = Button2Click
+  end
+  object Button4: TButton
+    Left = 760
+    Top = 272
+    Width = 75
+    Height = 25
+    Caption = 'Button4'
+    TabOrder = 17
+    OnClick = Button4Click
   end
 end
