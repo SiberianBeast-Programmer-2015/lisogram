@@ -51,7 +51,6 @@ object Form1: TForm1
     Top = 72
     Width = 449
     Height = 241
-    Center = True
   end
   object Variant1: TEdit
     Left = 152

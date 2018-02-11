@@ -205,7 +205,7 @@ begin
 end;
 
 procedure TForm1.Button3Click(Sender: TObject);
-const scale = true;
+const scale = false;
 var h,w: integer;
 bm: TBitmap;
 begin
@@ -218,7 +218,9 @@ begin
     h := (h+w) div 2;
     ScalePercentBmp(bm,-h);
     Image1.Picture.Assign(bm);
-  end; 
+  end
+  else
+    Image1.Picture.Assign(bm); 
   setText(Image1.Canvas,'i am');
 end;
 
