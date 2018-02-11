@@ -140,6 +140,7 @@ begin
   with Form1 do
   begin
     WindowsMediaPlayer1.uiMode := 'none';
+    WindowsMediaPlayer1.settings.volume := 100;
     memo1.lines.add('start loading');
     WindowsMediaPlayer1.URL := appPath + 'data\1.avi'; 
   end;
