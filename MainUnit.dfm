@@ -52,6 +52,14 @@ object Form1: TForm1
     Width = 449
     Height = 241
   end
+  object Memo1: TMemo
+    Left = 8
+    Top = 64
+    Width = 185
+    Height = 305
+    ScrollBars = ssVertical
+    TabOrder = 11
+  end
   object Variant1: TEdit
     Left = 152
     Top = 392
@@ -207,14 +215,6 @@ object Form1: TForm1
     TabOrder = 11
     WordWrap = True
     OnClick = Button3Click
-  end
-  object Memo1: TMemo
-    Left = 8
-    Top = 64
-    Width = 185
-    Height = 305
-    ScrollBars = ssVertical
-    TabOrder = 12
   end
   object variant5: TEdit
     Left = 152
