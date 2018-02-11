@@ -29,10 +29,6 @@ type
     procedure FormCreate(Sender: TObject);
     procedure ButtonCheckClick(Sender: TObject);
     procedure buttonHelpClick(Sender: TObject);
-    procedure WindowsMediaPlayer1EndOfStream(ASender: TObject;
-      Result: Integer);
-    procedure WindowsMediaPlayer1MediaChange(ASender: TObject;
-      const Item: IDispatch);
     procedure WindowsMediaPlayer1PlayStateChange(ASender: TObject;
       NewState: Integer);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
@@ -141,7 +137,6 @@ end;
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
-  WindowsMediaPlayer1.uiMode := 'none';
   QueryBgImageLoad();
   buttonHelp.Visible := false;
   currZadanie := 1;
@@ -173,7 +168,6 @@ end;
 procedure doIfRightAnswer();
 begin
   form1.buttonHelp.Visible := false;
-  // ++ curr zadanie if right
   if currZadanie = Length(zadania) - 1 then
   begin
     testIsFinished();
@@ -232,11 +226,17 @@ end;
 procedure TForm1.WindowsMediaPlayer1PlayStateChange(ASender: TObject;
   NewState: Integer);
 begin
+  try
+    if (newstate = 1) then
+      WindowsMediaPlayer1.controls.play; 
+    memo1.Lines.add('state changed - ' + inttostr(newState));
+  except
+  end;
 end;
 
 procedure TForm1.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
-  WindowsMediaPlayer1.controls.stop;
+  WindowsMediaPlayer1.controls.stop; // avoid exceptions
   WindowsMediaPlayer1.close;
 end;
 
