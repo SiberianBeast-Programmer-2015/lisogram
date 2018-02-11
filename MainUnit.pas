@@ -22,28 +22,16 @@ type
     buttonHelp: TButton;
     QueryLabel: TLabel;
     Image1: TImage;
-    Button3: TButton;
     Memo1: TMemo;
     variant5: TEdit;
     CheckBox5: TCheckBox;
-    Button1: TButton;
     WindowsMediaPlayer1: TWindowsMediaPlayer;
-    Button2: TButton;
-    Button4: TButton;
     procedure FormCreate(Sender: TObject);
     procedure ButtonCheckClick(Sender: TObject);
-    procedure Button3Click(Sender: TObject);
     procedure buttonHelpClick(Sender: TObject);
-    procedure Button1Click(Sender: TObject);
-    procedure WindowsMediaPlayer1EndOfStream(ASender: TObject;
-      Result: Integer);
-    procedure WindowsMediaPlayer1MediaChange(ASender: TObject;
-      const Item: IDispatch);
     procedure WindowsMediaPlayer1PlayStateChange(ASender: TObject;
       NewState: Integer);
-    procedure Button2Click(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
-    procedure Button4Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -147,10 +135,19 @@ begin
 end;
 end;
 
+procedure loadVideo();
+begin
+  with Form1 do
+  begin
+    WindowsMediaPlayer1.uiMode := 'none';
+    memo1.lines.add('start loading');
+    WindowsMediaPlayer1.URL := appPath + 'data\1.avi'; 
+  end;
+end;
 procedure TForm1.FormCreate(Sender: TObject);
 begin
-  WindowsMediaPlayer1.uiMode := 'none';
-  QueryBgImageLoad();
+  loadVideo;
+  QueryBgImageLoad(); // bg image for query clause
   buttonHelp.Visible := false;
   currZadanie := 1;
   readTest(appPath + testName); // whole test to read
@@ -181,7 +178,6 @@ end;
 procedure doIfRightAnswer();
 begin
   form1.buttonHelp.Visible := false;
-  // ++ curr zadanie if right
   if currZadanie = Length(zadania) - 1 then
   begin
     testIsFinished();
@@ -222,54 +218,24 @@ end;
 
 procedure TForm1.buttonHelpClick(Sender: TObject);
 begin
-  ShowMessage('Здеся была справка');
-end;
-
-procedure TForm1.Button1Click(Sender: TObject);
-begin
-  WindowsMediaPlayer1.uiMode := 'none';
-  memo1.lines.add('start loading');
-  WindowsMediaPlayer1.URL := appPath + 'data\1.avi';  
-end;
-
-procedure TForm1.WindowsMediaPlayer1EndOfStream(ASender: TObject;
-  Result: Integer);
-begin
-  showmessage('stop!');
-end;
-
-procedure TForm1.WindowsMediaPlayer1MediaChange(ASender: TObject;
-  const Item: IDispatch);
-begin
-  //showmessage('media changed');
+  ShowMessage('Здесь была справка');
 end;
 
 procedure TForm1.WindowsMediaPlayer1PlayStateChange(ASender: TObject;
   NewState: Integer);
 begin
-    try
-      if (newstate = 1) then
-        WindowsMediaPlayer1.controls.play; 
-      memo1.Lines.add('state changed - ' + inttostr(newState));
-    except
-    end;
-end;
-
-procedure TForm1.Button2Click(Sender: TObject);
-begin
-WindowsMediaPlayer1.controls.stop;
-WindowsMediaPlayer1.close;
+  try
+    if (newstate = 1) then
+      WindowsMediaPlayer1.controls.play; 
+    memo1.Lines.add('state changed - ' + inttostr(newState));
+  except
+  end;
 end;
 
 procedure TForm1.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
-  WindowsMediaPlayer1.controls.stop;
+  WindowsMediaPlayer1.controls.stop; // avoid exceptions
   WindowsMediaPlayer1.close;
-end;
-
-procedure TForm1.Button4Click(Sender: TObject);
-begin
-WindowsMediaPlayer1.controls.play
 end;
 
 end.
