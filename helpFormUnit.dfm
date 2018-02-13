@@ -1,7 +1,7 @@
 object Form2: TForm2
-  Left = 192
-  Top = 124
-  Width = 928
+  Left = 14
+  Top = 131
+  Width = 1175
   Height = 480
   Caption = 'Form2'
   Color = clBtnFace
@@ -22,7 +22,7 @@ object Form2: TForm2
     Caption = 'Label1'
   end
   object RichEdit1: TRichEdit
-    Left = 328
+    Left = 104
     Top = 16
     Width = 561
     Height = 385

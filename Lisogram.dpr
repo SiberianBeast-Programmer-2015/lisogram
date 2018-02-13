@@ -6,7 +6,8 @@ uses
   helpUnit in 'helpUnit.pas',
   WMPLib_TLB in 'WMPLib_TLB.pas',
   helpFormUnit in 'helpFormUnit.pas' {Form2},
-  re_bmp in 're_bmp.pas';
+  re_bmp in 're_bmp.pas',
+  RxRichEd in 'RxRichEd.pas';
 
 {$R *.res}
 

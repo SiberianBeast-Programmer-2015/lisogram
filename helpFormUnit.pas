@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, OleCtrls, WMPLib_TLB, ComCtrls,helpUnit,re_bmp;
+  Dialogs, StdCtrls, OleCtrls, WMPLib_TLB, ComCtrls,helpUnit,re_bmp,RxRichEd;
 
 type
   TForm2 = class(TForm)
@@ -37,12 +37,25 @@ end;
 
 procedure TForm2.Button1Click(Sender: TObject);
 var b:TBitmap;
+var r: TRxRichEdit;
 begin
   RichEdit1.Lines.LoadFromFile(appPath + 'data\1.rtf');
   b := TBitmap.Create;
   b.LoadFromFile(apppath + 'data\bgImage.bmp');
   setLine(RichEdit1,2,2);
   InsertBitmapToRE(RichEdit1.Handle,B.Handle);
+
+  r := TRxRichEdit.Create(Form2);
+  r.Width := 1100;
+  r.Height := 500;
+  r.Left := 50;
+  r.Top := 0;
+  r.Visible := true;
+
+  r.Parent := Form2;
+  r.Lines.LoadFromFile (appPath + 'data\1.rtf');
+ 
 end;
+
 
 end.
