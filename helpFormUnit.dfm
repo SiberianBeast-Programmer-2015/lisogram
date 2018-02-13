@@ -12,6 +12,7 @@ object Form2: TForm2
   Font.Style = []
   OldCreateOrder = False
   Visible = True
+  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel
@@ -21,22 +22,12 @@ object Form2: TForm2
     Height = 13
     Caption = 'Label1'
   end
-  object RichEdit1: TRichEdit
-    Left = 104
-    Top = 16
-    Width = 561
-    Height = 385
-    Lines.Strings = (
-      'RichEdit1')
-    ScrollBars = ssBoth
-    TabOrder = 0
-  end
   object WindowsMediaPlayer1: TWindowsMediaPlayer
-    Left = 40
-    Top = 40
+    Left = 8
+    Top = 48
     Width = 245
     Height = 240
-    TabOrder = 1
+    TabOrder = 0
     ControlData = {
       000300000800000000000500000000000000F03F030000000000050000000000
       0000000008000200000000000300010000000B00FFFF0300000000000B00FFFF
@@ -51,7 +42,7 @@ object Form2: TForm2
     Width = 75
     Height = 25
     Caption = 'Button1'
-    TabOrder = 2
+    TabOrder = 1
     OnClick = Button1Click
   end
 end
