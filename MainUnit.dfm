@@ -1,6 +1,6 @@
 object Form1: TForm1
-  Left = 129
-  Top = 20
+  Left = 133
+  Top = 508
   Width = 1157
   Height = 689
   Caption = 'Test player'
