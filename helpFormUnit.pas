@@ -11,17 +11,17 @@ type
     WindowsMediaPlayer1: TWindowsMediaPlayer;
     Button1: TButton;
     Label1: TLabel;
+    r: TRichEdit;
     procedure Button1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
   private
-    { Private declarations }
+    procedure swapRichEdit();
   public
-    { Public declarations }
   end;
 
 var
   Form2: TForm2;
-  r: TRxRichEdit;
+  richEdit: TRxRichEdit;
 implementation
 
 {$R *.dfm}
@@ -32,17 +32,26 @@ begin
     richEdit.Lines.LoadFromFile(appData + 'default.rtf');
 end;
 
+procedure TForm2.swapRichEdit();
+begin
+  with r do
+  begin
+    richEdit := TRxRichEdit.Create(Form2); // form is owner
+    richEdit.Width := Width;
+    richEdit.Height := Height;
+    richEdit.Left := Left;
+    richEdit.Top := Top;
+    richEdit.Visible := Visible;
+
+    richEdit.Parent := Parent;
+  end;
+  r.Free;
+  r := nil;
+end;
 
 procedure TForm2.FormCreate(Sender: TObject);
 begin
-  r := TRxRichEdit.Create(Form2);
-  r.Width := 800;
-  r.Height := Form2.Height - 1;
-  r.Left := 256;
-  r.Top := 0;
-  r.Visible := true;
-
-  r.Parent := Form2;
+  swapRichEdit(); // destroyes default, creates RxRichEdit
 end;
 
 end.

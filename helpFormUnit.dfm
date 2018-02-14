@@ -45,4 +45,14 @@ object Form2: TForm2
     TabOrder = 1
     OnClick = Button1Click
   end
+  object r: TRichEdit
+    Left = 256
+    Top = 8
+    Width = 681
+    Height = 393
+    Lines.Strings = (
+      'r')
+    ScrollBars = ssVertical
+    TabOrder = 2
+  end
 end
