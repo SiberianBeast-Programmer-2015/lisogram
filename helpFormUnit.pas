@@ -16,10 +16,13 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
   private
+    themeName: string;
     procedure swapRichEdit();
+    procedure loadHelp(themeNm: string);
   public
+    procedure setThemeName(strThemeName: string);
   end;
-
+const string_file_not_found = 'file not found';
 var
   Form2: TForm2;
   richEdit: TRxRichEdit;
@@ -53,6 +56,24 @@ end;
 procedure TForm2.FormCreate(Sender: TObject);
 begin
   swapRichEdit(); // destroyes default, creates RxRichEdit
+end;
+
+procedure TForm2.setThemeName(strThemeName: string);
+begin
+  themeName := Trim(strThemeName);
+  loadHelp(appData + themeName + '.rtf');
+end;
+
+procedure TForm2.loadHelp(themeNm: string);
+begin
+  if Not FileExists(themeNm) then
+  begin
+    ShowMessage('no such file!');
+    richedit.Lines.Add(string_file_not_found + ' at ' + themeNm);
+    Exit;
+  end;
+
+  richEdit.Lines.LoadFromFile(themeNm);
 end;
 
 procedure TForm2.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
