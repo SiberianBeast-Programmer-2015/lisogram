@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, strutils, helpUnit, jpeg, ExtCtrls, ComCtrls, MPlayer,
-  OleCtrls, WMPLib_TLB;
+  OleCtrls, WMPLib_TLB,helpFormUnit;
 
 type
   TForm1 = class(TForm)
@@ -42,6 +42,8 @@ type
 const testName = 'test.txt';
 var
   Form1: TForm1;
+  Form2: TForm2;
+  
   list: TStringList;
   tasks: array of TStringList;
   currTask: integer;
@@ -222,7 +224,9 @@ end;
 
 procedure TForm1.buttonHelpClick(Sender: TObject);
 begin
-  ShowMessage('Здесь была справка');
+  Form2 := TForm2.Create(Application);
+  Form2.Show;
+  Form2.setThemeName(themeName);
 end;
 
 procedure TForm1.WindowsMediaPlayer1PlayStateChange(ASender: TObject;
