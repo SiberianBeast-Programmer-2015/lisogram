@@ -42,8 +42,8 @@ const testName = 'test.txt';
 var
   Form1: TForm1;
   list: TStringList;
-  zadania: array of TStringList;
-  currZadanie: integer;
+  tasks: array of TStringList;
+  currTask: integer;
   answer: string;   themeName: string;
   startLeft,startTop: integer; // WMP unknown behavior
 implementation
@@ -62,7 +62,7 @@ implementation
 }
 
 procedure readTest(testFile: string); // разделим на прочтение вопросов циклично
-var i,n: integer; func,element: string;
+var i,n: integer; element: string;
 begin
   With Form1 do begin 
     list := TStringList.Create;
@@ -72,22 +72,19 @@ begin
     ThemeLabel.Caption := themeName;
 
     n := 1;
-    SetLength(zadania,n+1);
-    zadania[n] := TStringList.Create;
+    SetLength(tasks,n+1);
+    tasks[n] := TStringList.Create;
     for i := 2 to list.count - 1 do
     begin
       element := Trim(list[i]);
-      if element = '---' then
+      if element = '---' then  // delimiter
       begin
         Inc(n);
-        SetLength(zadania,n+1);
-        zadania[n] := TStringList.Create;
+        SetLength(tasks,n+1);
+        tasks[n] := TStringList.Create;
       end
       else
-      begin
-        zadania[n].Add(element);
-        //Memo1.Lines.Add(IntToStr(n) + ' = ' + element);
-      end;
+        tasks[n].Add(element);
     end; 
     list.Free;
     list := nil;
@@ -100,10 +97,10 @@ var i: integer; var func,element: string;
 begin
   with form1 do 
   begin
-    for i := 0 to zadania[number].Count - 1 do
+    for i := 0 to tasks[number].Count - 1 do
     begin
-      func := getFunction(zadania[number][i]);
-      element := getInfo(zadania[number][i]);
+      func := getFunction(tasks[number][i]);
+      element := getInfo(tasks[number][i]);
       if  func = 'тема' then
         ThemeLabel.Caption := 'Тема: ' + element;
       if func = 'вопрос' then
@@ -143,7 +140,6 @@ begin
   begin
     WindowsMediaPlayer1.uiMode := 'none';
     WindowsMediaPlayer1.settings.volume := 100;
-    //memo1.lines.add('start loading');
     WindowsMediaPlayer1.URL := appData + '1.avi'; 
   end;
 end;
@@ -151,14 +147,14 @@ procedure TForm1.FormCreate(Sender: TObject);
 begin
   startLeft := WindowsMediaPlayer1.Left;
   startTop := WindowsMediaPlayer1.Top;
-  QueryBgImageLoad(); // bg image for query clause
+  QueryBgImageLoad(); // query area background image
   
   loadVideo;
   
   buttonHelp.Visible := false;
-  currZadanie := 1;
-  readTest(appPath + testName); // whole test to read
-  loadTest(currZadanie); // fill first
+  currTask := 1;
+  readTest(appData + testName); // whole test to read
+  loadTest(currTask); // show the first test
 end;
 
 function getUserAnswerString(): string;
@@ -185,13 +181,13 @@ end;
 procedure doIfRightAnswer();
 begin
   form1.buttonHelp.Visible := false;
-  if currZadanie = Length(zadania) - 1 then
+  if currTask = Length(tasks) - 1 then
   begin
     testIsFinished();
     exit;
   end
   else
-    Inc(currZadanie);
+    Inc(currTask);
   with form1 do
   begin
     variant1.Text := '';
@@ -206,7 +202,7 @@ begin
     CheckBox4.Checked := false;
     CheckBox5.Checked := false;
   end;
-  loadTest(currZadanie);
+  loadTest(currTask);
 end;
 
 procedure doIfFalseAnswer();
@@ -236,7 +232,6 @@ begin
     WindowsMediaPlayer1.Top := startTop;
     if (newstate = 1) then
       WindowsMediaPlayer1.controls.play; 
-    //memo1.Lines.add('state changed - ' + inttostr(newState));
   except
   end;
 end;
@@ -250,7 +245,6 @@ end;
 procedure TForm1.WindowsMediaPlayer1OpenStateChange(ASender: TObject;
   NewState: Integer);
 begin
-  //showmessage(IntToStr(newState));
   WindowsMediaPlayer1.Left := startLeft;
   WindowsMediaPlayer1.Top := startTop;
 end;
