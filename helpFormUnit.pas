@@ -28,7 +28,8 @@ implementation
 
 procedure TForm2.Button1Click(Sender: TObject);
 begin
-  r.Lines.LoadFromFile (appPath + 'data\1.rtf');
+  if FileExists(appData + 'default.rtf') then
+    richEdit.Lines.LoadFromFile(appData + 'default.rtf');
 end;
 
 
