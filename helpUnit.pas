@@ -10,9 +10,21 @@ function getFunction(item: string): string;
 function getInfo(item: string):string;
 function ScalePercentBmp(bitmp: TBitmap; iPercent: Integer): Boolean;
 procedure setText(Canva: TCanvas; text: string);
+function appData(): string;
+//Procedure setline(WhichEdit:TRichedit;Linepos,charpos:integer);
 //----------------------------------------------------------------------------
 implementation
-
+function appData(): string;
+begin
+  Result := appPath + 'data\';
+end;
+{Procedure setline(WhichEdit:TRichedit;Linepos,charpos:integer);
+Begin
+with WhichEdit do
+begin
+selstart:=perform(EM_LineIndex,Linepos,0)+charpos;
+perform(EM_ScrollCaret,0,0);
+end;  }
 {Важно! нужно входящий текст разбивать на строки. TextExtent поможет узнать
 сколько есть места, по ней будет рассчитываться перенос на новую строку}
 // Deprecated
