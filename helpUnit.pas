@@ -10,9 +10,14 @@ function getFunction(item: string): string;
 function getInfo(item: string):string;
 function ScalePercentBmp(bitmp: TBitmap; iPercent: Integer): Boolean;
 procedure setText(Canva: TCanvas; text: string);
+function appData(): string;
 //Procedure setline(WhichEdit:TRichedit;Linepos,charpos:integer);
 //----------------------------------------------------------------------------
 implementation
+function appData(): string;
+begin
+  Result := appPath + 'data\';
+end;
 {Procedure setline(WhichEdit:TRichedit;Linepos,charpos:integer);
 Begin
 with WhichEdit do

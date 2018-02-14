@@ -38,7 +38,7 @@ type
   public
     { Public declarations }
   end;
-const testName = 'data\test.txt';
+const testName = 'test.txt';
 var
   Form1: TForm1;
   list: TStringList;
@@ -128,7 +128,7 @@ procedure QueryBgImageLoad();
 var bm: TBitmap;
 begin
   bm := TBitmap.Create();
-  bm.LoadFromFile(appPath + 'data\bgImage.bmp');
+  bm.LoadFromFile(appData + 'bgImage.bmp');
   with form1 do
   begin
     Image1.Proportional := false;
@@ -144,7 +144,7 @@ begin
     WindowsMediaPlayer1.uiMode := 'none';
     WindowsMediaPlayer1.settings.volume := 100;
     //memo1.lines.add('start loading');
-    WindowsMediaPlayer1.URL := appPath + 'data\1.avi'; 
+    WindowsMediaPlayer1.URL := appData + '1.avi'; 
   end;
 end;
 procedure TForm1.FormCreate(Sender: TObject);
