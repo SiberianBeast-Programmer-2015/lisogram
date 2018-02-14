@@ -33,6 +33,7 @@ type
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure WindowsMediaPlayer1OpenStateChange(ASender: TObject;
       NewState: Integer);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
   public
@@ -238,15 +239,37 @@ end;
 
 procedure TForm1.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
-  WindowsMediaPlayer1.controls.stop; // avoid exceptions
-  WindowsMediaPlayer1.close;
+    // some paranoia :)
+  try
+    try
+      try
+        WindowsMediaPlayer1.controls.stop; // avoid exceptions
+        WindowsMediaPlayer1.Close;
+        WindowsMediaPlayer1.Free;
+      except
+      end;
+    except
+    end;
+  except
+  end;
 end;
 
 procedure TForm1.WindowsMediaPlayer1OpenStateChange(ASender: TObject;
   NewState: Integer);
 begin
-  WindowsMediaPlayer1.Left := startLeft;
-  WindowsMediaPlayer1.Top := startTop;
+  try
+    WindowsMediaPlayer1.Left := startLeft;
+    WindowsMediaPlayer1.Top := startTop;
+  except
+  end;
+end;
+
+procedure TForm1.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  try  
+    WindowsMediaPlayer1.Close; 
+  except 
+  end;
 end;
 
 end.

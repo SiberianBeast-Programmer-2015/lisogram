@@ -8,12 +8,13 @@ uses
 
 type
   TForm2 = class(TForm)
-    WindowsMediaPlayer1: TWindowsMediaPlayer;
     Button1: TButton;
     Label1: TLabel;
     r: TRichEdit;
+    WindowsMediaPlayer2: TWindowsMediaPlayer;
     procedure Button1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
   private
     procedure swapRichEdit();
   public
@@ -52,6 +53,23 @@ end;
 procedure TForm2.FormCreate(Sender: TObject);
 begin
   swapRichEdit(); // destroyes default, creates RxRichEdit
+end;
+
+procedure TForm2.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+begin
+    // some paranoia :)
+  try
+    try
+      try
+        WindowsMediaPlayer2.controls.stop; // avoid exceptions
+        WindowsMediaPlayer2.Close;
+        WindowsMediaPlayer2.Free;
+      except
+      end;
+    except
+    end;
+  except
+  end;
 end;
 
 end.

@@ -12,6 +12,7 @@ object Form2: TForm2
   Font.Style = []
   OldCreateOrder = False
   Visible = True
+  OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
@@ -22,27 +23,13 @@ object Form2: TForm2
     Height = 13
     Caption = 'Label1'
   end
-  object WindowsMediaPlayer1: TWindowsMediaPlayer
-    Left = 8
-    Top = 48
-    Width = 245
-    Height = 240
-    TabOrder = 0
-    ControlData = {
-      000300000800000000000500000000000000F03F030000000000050000000000
-      0000000008000200000000000300010000000B00FFFF0300000000000B00FFFF
-      08000200000000000300320000000B00000008000A000000660075006C006C00
-      00000B0000000B0000000B00FFFF0B00FFFF0B00000008000200000000000800
-      020000000000080002000000000008000200000000000B00000052190000CE18
-      0000}
-  end
   object Button1: TButton
     Left = 128
     Top = 360
     Width = 75
     Height = 25
     Caption = 'Button1'
-    TabOrder = 1
+    TabOrder = 0
     OnClick = Button1Click
   end
   object r: TRichEdit
@@ -53,6 +40,20 @@ object Form2: TForm2
     Lines.Strings = (
       'r')
     ScrollBars = ssVertical
+    TabOrder = 1
+  end
+  object WindowsMediaPlayer2: TWindowsMediaPlayer
+    Left = 0
+    Top = 48
+    Width = 245
+    Height = 240
     TabOrder = 2
+    ControlData = {
+      000300000800000000000500000000000000F03F030000000000050000000000
+      0000000008000200000000000300010000000B00FFFF0300000000000B00FFFF
+      08000200000000000300320000000B00000008000A000000660075006C006C00
+      00000B0000000B0000000B00FFFF0B00FFFF0B00000008000200000000000800
+      020000000000080002000000000008000200000000000B00000052190000CE18
+      0000}
   end
 end
