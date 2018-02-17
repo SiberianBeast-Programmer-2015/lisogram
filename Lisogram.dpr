@@ -7,13 +7,15 @@ uses
   WMPLib_TLB in 'WMPLib_TLB.pas',
   helpFormUnit in 'helpFormUnit.pas' {Form2},
   re_bmp in 're_bmp.pas',
-  RxRichEd in 'RxRichEd.pas';
+  RxRichEd in 'RxRichEd.pas',
+  SplashForm in 'SplashForm.pas' {Form3};
 
 {$R *.res}
 
 begin
   Application.Initialize;
   Application.CreateForm(TForm1, Form1);
-  //Application.CreateForm(TForm2, Form2);
+  //Application.CreateForm(TForm3, Form3);
+  Application.CreateForm(TForm2, Form2);
   Application.Run;
 end.
