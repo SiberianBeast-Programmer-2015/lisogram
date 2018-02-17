@@ -12,10 +12,13 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormResize(Sender: TObject);
+    procedure WindowsMediaPlayer1PlayStateChange(ASender: TObject;
+      NewState: Integer);
   private
     { Private declarations }
   public
     { Public declarations }
+    procedure videoStopped();
   end;
 
 var
@@ -46,6 +49,23 @@ procedure TForm3.FormResize(Sender: TObject);
 begin
   WindowsMediaPlayer1.Width := Form3.Width - 10;
   WindowsMediaPlayer1.Height := Form3.Height - 10;
+end;
+
+procedure TForm3.WindowsMediaPlayer1PlayStateChange(ASender: TObject;
+  NewState: Integer);
+begin
+  try
+    WindowsMediaPlayer1.Left := 0;
+    WindowsMediaPlayer1.Top := 0;
+    if (newstate = 1) then
+      videoStopped(); 
+  except
+  end;
+end;
+
+procedure TForm3.videoStopped;
+begin
+  showMessage('-');
 end;
 
 end.
