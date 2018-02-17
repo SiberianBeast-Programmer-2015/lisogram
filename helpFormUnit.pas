@@ -4,19 +4,17 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, OleCtrls, WMPLib_TLB, ComCtrls,helpUnit,re_bmp,RxRichEd;
+  Dialogs, StdCtrls, OleCtrls, WMPLib_TLB, ComCtrls,helpUnit,re_bmp,RxRichEd,
+  ExtCtrls, PicShow;
 
 type
   TForm2 = class(TForm)
-    Button1: TButton;
     Label1: TLabel;
     r: TRichEdit;
-    WindowsMediaPlayer2: TWindowsMediaPlayer;
-    procedure Button1Click(Sender: TObject);
+    Timer1: TTimer;
+    PicShow1: TPicShow;
     procedure FormCreate(Sender: TObject);
-    procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
-    procedure WindowsMediaPlayer2PlayStateChange(ASender: TObject;
-      NewState: Integer);
+    procedure Timer1Timer(Sender: TObject);
   private
     themeName: string;
     procedure swapRichEdit();
@@ -28,18 +26,10 @@ const string_file_not_found = 'file not found';
 var
   Form2: TForm2;
   richEdit: TRxRichEdit;
+  i: integer;
 implementation
 
 {$R *.dfm}
-
-procedure TForm2.Button1Click(Sender: TObject);
-begin
-  Form2.Hide;
-  Form2.Close;
-  Application.ProcessMessages;
- // if FileExists(appData + 'default.rtf') then
- //   richEdit.Lines.LoadFromFile(appData + 'default.rtf');
-end;
 
 procedure TForm2.swapRichEdit();
 begin
@@ -61,9 +51,6 @@ end;
 procedure TForm2.FormCreate(Sender: TObject);
 begin
   swapRichEdit(); // destroyes default, creates RxRichEdit
-  WindowsMediaPlayer2.Left := 0 ;
-  WindowsMediaPlayer2.Top := 0 ;
-  WindowsMediaPlayer2.uiMode := 'none';
 end;
 
 procedure TForm2.setThemeName(strThemeName: string);
@@ -84,28 +71,19 @@ begin
   richEdit.Lines.LoadFromFile(themeNm);
 end;
 
-procedure TForm2.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+procedure TForm2.Timer1Timer(Sender: TObject);
 begin
-  // some paranoia :)
-  try
-    try
-      try
-        WindowsMediaPlayer2.controls.stop; // avoid exceptions
-        WindowsMediaPlayer2.Close;
-        WindowsMediaPlayer2.Free;
-      except
-      end;
-    except
-    end;
-  except
+  Inc(i);
+  if (i mod 1 = 0) then
+  begin
+    PicShow1.BgPicture.LoadFromFile(appdata + 'lis1.bmp');
+    PicShow1.Picture.LoadFromFile(appData + 'lis2.bmp');
   end;
-end;
-
-procedure TForm2.WindowsMediaPlayer2PlayStateChange(ASender: TObject;
-  NewState: Integer);
-begin
-  WindowsMediaPlayer2.Left := 8;
-  WindowsMediaPlayer2.Top := 48;
+  if (i mod 2 = 0) then 
+    PicShow1.BgPicture.LoadFromFile(appdata + 'lis3.bmp');
+ 
+  if (i mod 3 = 0) then
+    i := 0;
 end;
 
 end.
