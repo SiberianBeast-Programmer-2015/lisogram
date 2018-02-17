@@ -15,6 +15,8 @@ type
     procedure Button1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+    procedure WindowsMediaPlayer2PlayStateChange(ASender: TObject;
+      NewState: Integer);
   private
     themeName: string;
     procedure swapRichEdit();
@@ -32,8 +34,11 @@ implementation
 
 procedure TForm2.Button1Click(Sender: TObject);
 begin
-  if FileExists(appData + 'default.rtf') then
-    richEdit.Lines.LoadFromFile(appData + 'default.rtf');
+  Form2.Hide;
+  Form2.Close;
+  Application.ProcessMessages;
+ // if FileExists(appData + 'default.rtf') then
+ //   richEdit.Lines.LoadFromFile(appData + 'default.rtf');
 end;
 
 procedure TForm2.swapRichEdit();
@@ -56,12 +61,15 @@ end;
 procedure TForm2.FormCreate(Sender: TObject);
 begin
   swapRichEdit(); // destroyes default, creates RxRichEdit
+  WindowsMediaPlayer2.Left := 0 ;
+  WindowsMediaPlayer2.Top := 0 ;
+  WindowsMediaPlayer2.uiMode := 'none';
 end;
 
 procedure TForm2.setThemeName(strThemeName: string);
 begin
   themeName := Trim(strThemeName);
-  loadHelp(appData + themeName + '.rtf');
+  loadHelp(appData + 'Materials\' + themeName + '.rtf');
 end;
 
 procedure TForm2.loadHelp(themeNm: string);
@@ -78,7 +86,7 @@ end;
 
 procedure TForm2.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
-    // some paranoia :)
+  // some paranoia :)
   try
     try
       try
@@ -91,6 +99,13 @@ begin
     end;
   except
   end;
+end;
+
+procedure TForm2.WindowsMediaPlayer2PlayStateChange(ASender: TObject;
+  NewState: Integer);
+begin
+  WindowsMediaPlayer2.Left := 8;
+  WindowsMediaPlayer2.Top := 48;
 end;
 
 end.

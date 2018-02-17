@@ -243,7 +243,7 @@ end;
 
 procedure TForm1.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
-    // some paranoia :)
+  // some paranoia :)
   try
     try
       try
