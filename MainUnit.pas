@@ -30,6 +30,8 @@ type
     procedure ButtonCheckClick(Sender: TObject);
     procedure buttonHelpClick(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
+    procedure FormHide(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
   public
@@ -125,7 +127,7 @@ begin
         Variant4.Text := element;
       if func = 'вариант5' then
         Variant5.Text := element;
-      if func = 'правильныйвариантномер' then     
+      if func = 'правильныйвариантномер' then
         answer := element;
     end;
   end;
@@ -238,6 +240,16 @@ begin
   CheckBox3.Checked := false;
   CheckBox4.Checked := false;
   CheckBox5.Checked := false;
+end;
+
+procedure TForm1.FormHide(Sender: TObject);
+begin
+  Timer1.Enabled := false;
+end;
+
+procedure TForm1.FormShow(Sender: TObject);
+begin
+  Timer1.Enabled := true;
 end;
 
 end.

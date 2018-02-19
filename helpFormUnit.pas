@@ -15,6 +15,8 @@ type
     PicShow1: TPicShow;
     procedure FormCreate(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure FormHide(Sender: TObject);
   private
     themeName: string;
     procedure swapRichEdit();
@@ -79,11 +81,21 @@ begin
     PicShow1.BgPicture.LoadFromFile(appdata + 'lis1.bmp');
     PicShow1.Picture.LoadFromFile(appData + 'lis2.bmp');
   end;
-  if (i mod 2 = 0) then 
+  if (i mod 2 = 0) then
     PicShow1.BgPicture.LoadFromFile(appdata + 'lis3.bmp');
  
   if (i mod 3 = 0) then
     i := 0;
+end;
+
+procedure TForm2.FormShow(Sender: TObject);
+begin
+  Timer1.Enabled := true;
+end;
+
+procedure TForm2.FormHide(Sender: TObject);
+begin
+  Timer1.Enabled := false;
 end;
 
 end.
