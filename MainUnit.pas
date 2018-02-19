@@ -34,6 +34,15 @@ type
     { Private declarations }
   public
     { Public declarations }
+    currTask: integer;
+    procedure readTest(testFile: string);
+    procedure loadTest(number: integer);
+    procedure QueryBgImageLoad();
+    function getUserAnswerString(): string;
+    procedure testIsFinished();
+    procedure doIfRightAnswer();
+    procedure doIfFalseAnswer();
+    procedure cleanFields();
   end;
 const testName = 'test.txt';
 var
@@ -61,7 +70,7 @@ implementation
 ответ
 }
 
-procedure readTest(testFile: string); // разделим на прочтение вопросов циклично
+procedure TForm1.readTest(testFile: string); // разделим на прочтение вопросов циклично
 var i,n: integer; element: string;
 begin
   With Form1 do begin 
@@ -92,7 +101,7 @@ begin
 {на выходе имеем структурированный массив заданий}
 end;
 
-procedure loadTest(number: integer);
+procedure TForm1.loadTest(number: integer);
 var i: integer; var func,element: string;
 begin
   with form1 do 
@@ -104,7 +113,8 @@ begin
       if  func = 'тема' then
         ThemeLabel.Caption := 'Тема: ' + element;
       if func = 'вопрос' then
-        QueryLabel.Caption := element;
+      
+        QueryLabel.Caption := IntToStr(Form1.currTask) + '-й: ' + element;
       if func = 'вариант1' then
         Variant1.Text := element;
       if func = 'вариант2' then
@@ -121,7 +131,7 @@ begin
   end;
 end;
 
-procedure QueryBgImageLoad();
+procedure TForm1.QueryBgImageLoad();
 var bm: TBitmap;
 begin
   bm := TBitmap.Create();
@@ -137,13 +147,14 @@ end;
 procedure TForm1.FormCreate(Sender: TObject);
 begin
   QueryBgImageLoad(); // query area background image
+  cleanFields;  
   buttonHelp.Visible := false;
   currTask := 1;
   readTest(appData + testName); // whole test to read
   loadTest(currTask); // show the first test
 end;
 
-function getUserAnswerString(): string;
+function TForm1.getUserAnswerString(): string;
 var s: string;
 begin
   s := '';
@@ -158,13 +169,13 @@ begin
   Result := s;
 end;
 
-procedure testIsFinished();
+procedure TForm1.testIsFinished();
 begin
   form1.ButtonCheck.Enabled := false;
   showMessage('Выполните действие по окончании теста');
 end;
 
-procedure doIfRightAnswer();
+procedure TForm1.doIfRightAnswer();
 begin
   form1.buttonHelp.Visible := false;
   if currTask = Length(tasks) - 1 then
@@ -174,24 +185,11 @@ begin
   end
   else
     Inc(currTask);
-  with form1 do
-  begin
-    variant1.Text := '';
-    variant2.Text := '';
-    variant3.Text := '';
-    variant4.Text := '';
-    variant5.Text := '';
-    
-    CheckBox1.Checked := false;
-    CheckBox2.Checked := false;
-    CheckBox3.Checked := false;
-    CheckBox4.Checked := false;
-    CheckBox5.Checked := false;
-  end;
+  cleanFields;
   loadTest(currTask);
 end;
 
-procedure doIfFalseAnswer();
+procedure TForm1.doIfFalseAnswer();
 begin
   Form1.buttonHelp.Visible := true;
   ShowMessage('Ответ неверен, обратитесь к справке');
@@ -227,7 +225,19 @@ begin
     i := 0;
 end;
 
+procedure TForm1.cleanFields;
 begin
+  variant1.Text := '';
+  variant2.Text := '';
+  variant3.Text := '';
+  variant4.Text := '';
+  variant5.Text := '';
+    
+  CheckBox1.Checked := false;
+  CheckBox2.Checked := false;
+  CheckBox3.Checked := false;
+  CheckBox4.Checked := false;
+  CheckBox5.Checked := false;
 end;
 
 end.
