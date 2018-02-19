@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, strutils, helpUnit, jpeg, ExtCtrls, ComCtrls, MPlayer,
-  OleCtrls, WMPLib_TLB,helpFormUnit;
+  OleCtrls, WMPLib_TLB,helpFormUnit, PicShow;
 
 type
   TForm1 = class(TForm)
@@ -24,16 +24,12 @@ type
     Image1: TImage;
     variant5: TEdit;
     CheckBox5: TCheckBox;
-    WindowsMediaPlayer1: TWindowsMediaPlayer;
+    Timer1: TTimer;
+    PicShow1: TPicShow;
     procedure FormCreate(Sender: TObject);
     procedure ButtonCheckClick(Sender: TObject);
     procedure buttonHelpClick(Sender: TObject);
-    procedure WindowsMediaPlayer1PlayStateChange(ASender: TObject;
-      NewState: Integer);
-    procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
-    procedure WindowsMediaPlayer1OpenStateChange(ASender: TObject;
-      NewState: Integer);
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure Timer1Timer(Sender: TObject);
   private
     { Private declarations }
   public
@@ -46,9 +42,10 @@ var
   
   list: TStringList;
   tasks: array of TStringList;
-  currTask: integer;
+  
   answer: string;   themeName: string;
-  startLeft,startTop: integer; // WMP unknown behavior
+  startLeft,startTop: integer; // WMP unknown behavior  
+  i: integer;
 implementation
 
 {$R *.dfm}
@@ -137,23 +134,9 @@ begin
   end;
 end;
 
-procedure loadVideo();
-begin
-  with Form1 do
-  begin
-    WindowsMediaPlayer1.uiMode := 'none';
-    WindowsMediaPlayer1.settings.volume := 100;
-    WindowsMediaPlayer1.URL := appData + '1.avi'; 
-  end;
-end;
 procedure TForm1.FormCreate(Sender: TObject);
 begin
-  startLeft := WindowsMediaPlayer1.Left;
-  startTop := WindowsMediaPlayer1.Top;
   QueryBgImageLoad(); // query area background image
-  
-  loadVideo;
-  
   buttonHelp.Visible := false;
   currTask := 1;
   readTest(appData + testName); // whole test to read
@@ -229,51 +212,22 @@ begin
   Form2.setThemeName(themeName);
 end;
 
-procedure TForm1.WindowsMediaPlayer1PlayStateChange(ASender: TObject;
-  NewState: Integer);
+procedure TForm1.Timer1Timer(Sender: TObject);
 begin
-  try
-    WindowsMediaPlayer1.Left := startLeft;
-    WindowsMediaPlayer1.Top := startTop;
-    if (newstate = 1) then
-      WindowsMediaPlayer1.controls.play; 
-  except
+  Inc(i);
+  if (i mod 1 = 0) then
+  begin
+    PicShow1.BgPicture.LoadFromFile(appdata + 'lis\lis1.bmp');
+    PicShow1.Picture.LoadFromFile(appData + 'lis\lis2.bmp');
   end;
+  if (i mod 2 = 0) then 
+    PicShow1.BgPicture.LoadFromFile(appdata + 'lis\lis3.bmp');
+ 
+  if (i mod 3 = 0) then
+    i := 0;
 end;
 
-procedure TForm1.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
-  // some paranoia :)
-  try
-    try
-      try
-        WindowsMediaPlayer1.controls.stop; // avoid exceptions
-        WindowsMediaPlayer1.Close;
-        WindowsMediaPlayer1.Free;
-      except
-      end;
-    except
-    end;
-  except
-  end;
-end;
-
-procedure TForm1.WindowsMediaPlayer1OpenStateChange(ASender: TObject;
-  NewState: Integer);
-begin
-  try
-    WindowsMediaPlayer1.Left := startLeft;
-    WindowsMediaPlayer1.Top := startTop;
-  except
-  end;
-end;
-
-procedure TForm1.FormClose(Sender: TObject; var Action: TCloseAction);
-begin
-  try  
-    WindowsMediaPlayer1.Close; 
-  except 
-  end;
 end;
 
 end.
