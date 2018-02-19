@@ -1,10 +1,10 @@
 object Form2: TForm2
-  Left = 170
-  Top = 125
+  Left = 242
+  Top = 155
   BorderStyle = bsDialog
   Caption = #1060#1086#1088#1084#1072' '#1087#1086#1084#1086#1097#1080
-  ClientHeight = 442
-  ClientWidth = 862
+  ClientHeight = 439
+  ClientWidth = 985
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -13,12 +13,11 @@ object Form2: TForm2
   Font.Style = []
   OldCreateOrder = False
   Visible = True
-  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel
-    Left = 0
-    Top = 0
+    Left = 24
+    Top = 16
     Width = 191
     Height = 48
     Caption = #1047#1072#1082#1088#1086#1081#1090#1077', '#1095#1090#1086#1073#1099' '#1074#1077#1088#1085#1091#1090#1100#1089#1103' '#1082' '#1079#1072#1076#1072#1085#1080#1102
@@ -33,8 +32,8 @@ object Form2: TForm2
   object r: TRichEdit
     Left = 256
     Top = 8
-    Width = 585
-    Height = 393
+    Width = 705
+    Height = 401
     Lines.Strings = (
       'r')
     ScrollBars = ssVertical
@@ -42,9 +41,10 @@ object Form2: TForm2
   end
   object PicShow1: TPicShow
     Left = 8
-    Top = 168
-    Width = 241
-    Height = 233
+    Top = 192
+    Width = 209
+    Height = 217
+    BevelKind = bkSoft
     BgMode = bmStretched
     BgPicture.Data = {
       07544269746D6170E6710B00424DE6710B00000000003600000028000000F401
@@ -23487,6 +23487,7 @@ object Form2: TForm2
       FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
       FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
       FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
+    BorderWidth = 1
     Center = True
     Delay = 1
     Proportional = True
@@ -23497,7 +23498,7 @@ object Form2: TForm2
   object Timer1: TTimer
     Interval = 1500
     OnTimer = Timer1Timer
-    Left = 120
-    Top = 48
+    Left = 144
+    Top = 136
   end
 end
