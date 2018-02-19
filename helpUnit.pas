@@ -102,6 +102,7 @@ except
    Result := False;
 end;
 end;
+
 function getInfo(item: string):string;
 var pos: integer;
 begin
@@ -136,6 +137,11 @@ begin
     begin
       Result := '';
       exit;
+    end;
+    if AnsiLowerCase(AnsiLeftStr(item,6)) = 'вопрос'  then
+    begin
+      Result :=  'вопрос';
+      Exit;
     end;
     Result := AnsiLowerCase(AnsiLeftStr(item,pos-1));
 end;
