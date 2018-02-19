@@ -7,7 +7,7 @@ uses
   WMPLib_TLB in 'WMPLib_TLB.pas',
   helpFormUnit in 'helpFormUnit.pas' {Form2},
   RxRichEd in 'RxRichEd.pas',
-  SplashForm in 'SplashForm.pas' {Form3};
+  SplashFormUnit in 'SplashFormUnit.pas' {SplashForm},
 
 {$R *.res}
 
@@ -16,5 +16,6 @@ begin
   //Application.CreateForm(TForm1, Form1);
   //Application.CreateForm(TForm3, Form3);
   Application.CreateForm(TForm2, Form2);
+  Application.CreateForm(TSplashForm, SplashForm); 
   Application.Run;
 end.
