@@ -4,20 +4,36 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, SplashFormUnit;
+  Dialogs, StdCtrls, SplashFormUnit, Buttons,helpUnit, jpeg, ExtCtrls, MainUnit;
 
 type
   TMap = class(TForm)
-    Button1: TButton;
+    BitBtn1: TBitBtn;
+    BitBtn2: TBitBtn;
+    BitBtn3: TBitBtn;
+    BitBtn4: TBitBtn;
+    BitBtn5: TBitBtn;
+    BitBtn6: TBitBtn;
+    BitBtn7: TBitBtn;
     procedure FormActivate(Sender: TObject);
+    procedure BitBtn2Click(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure BitBtn1Click(Sender: TObject);
+    procedure BitBtn3Click(Sender: TObject);
+    procedure BitBtn4Click(Sender: TObject);
+    procedure BitBtn5Click(Sender: TObject);
+    procedure BitBtn6Click(Sender: TObject);
+    procedure BitBtn7Click(Sender: TObject);
   private
     { Private declarations }
   public
     { Public declarations }
+    procedure dispatchTest(Sender: TObject);
   end;
 
 var
   map: TMap;
+  created: boolean;
 
 implementation
 
@@ -29,4 +45,71 @@ begin
     SplashForm.Show;
 end;
 
+procedure TMap.BitBtn2Click(Sender: TObject);
+begin
+  dispatchTest(Sender);
+end;
+
+procedure TMap.FormCreate(Sender: TObject);
+begin
+  created := false;
+end;
+
+procedure TMap.dispatchTest(Sender: TObject);
+begin
+  if Created = false then
+  begin
+    Application.CreateForm(TForm1,Form1);
+    Form1.Show;
+  end
+  else
+  begin
+    try 
+      Form1.Show; 
+    except 
+      showmessage('cannot show');
+      exit;
+    end;
+  end;  //else
+  if (Sender is TBitBtn) then
+    begin
+      try
+        Form1.setTheme((Sender as TBitBtn).Caption);
+      except
+        showMessage('cannot load by caption!');
+      end; //try
+    end;//if
+end; //proc
+
+procedure TMap.BitBtn1Click(Sender: TObject);
+begin
+dispatchTest(Sender);
+end;
+
+procedure TMap.BitBtn3Click(Sender: TObject);
+begin
+dispatchTest(Sender);
+end;
+
+procedure TMap.BitBtn4Click(Sender: TObject);
+begin
+dispatchTest(Sender);
+end;
+
+procedure TMap.BitBtn5Click(Sender: TObject);
+begin
+dispatchTest(Sender);
+end;
+
+procedure TMap.BitBtn6Click(Sender: TObject);
+begin
+dispatchTest(Sender);
+end;
+
+procedure TMap.BitBtn7Click(Sender: TObject);
+begin
+dispatchTest(Sender);
+end;
+
 end.
+
