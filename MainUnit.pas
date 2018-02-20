@@ -173,7 +173,9 @@ end;
 procedure TForm1.testIsFinished();
 begin
   form1.ButtonCheck.Enabled := false;
-  showMessage('Выполните действие по окончании теста');
+  ShowMessage('Тест пройден. Возвращаемся к карте');
+  Application.MainForm.Show;
+  form1.Close;
 end;
 
 procedure TForm1.doIfRightAnswer();
