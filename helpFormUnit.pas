@@ -35,6 +35,7 @@ implementation
 
 procedure TForm2.swapRichEdit();
 begin
+try
   with r do
   begin
     richEdit := TRxRichEdit.Create(Form2); // form is owner
@@ -48,6 +49,9 @@ begin
   end;
   r.Free;
   r := nil;
+except
+showmessage('Не удается стартовать RichEdit');
+end;
 end;
 
 procedure TForm2.FormCreate(Sender: TObject);
@@ -66,36 +70,40 @@ begin
   if Not FileExists(themeNm) then
   begin
     ShowMessage('no such file!');
-    richedit.Lines.Add(string_file_not_found + ' at ' + themeNm);
+    //richedit.Lines.Add(string_file_not_found + ' at ' + themeNm);
     Exit;
   end;
-
-  richEdit.Lines.LoadFromFile(themeNm);
+  try
+    richEdit.Lines.LoadFromFile(themeNm);
+  except on E:Exception do ShowMessage(e.Message);end;
 end;
 
 procedure TForm2.Timer1Timer(Sender: TObject);
 begin
-  Inc(i);
-  if (i mod 1 = 0) then
-  begin
-    PicShow1.BgPicture.LoadFromFile(appdata + 'lis1.bmp');
-    PicShow1.Picture.LoadFromFile(appData + 'lis2.bmp');
-  end;
-  if (i mod 2 = 0) then
-    PicShow1.BgPicture.LoadFromFile(appdata + 'lis3.bmp');
+  try
+    Inc(i);
+    if (i mod 1 = 0) then
+    begin
+      PicShow1.BgPicture.LoadFromFile(appdata + 'lis\lis1.bmp');
+      PicShow1.Picture.LoadFromFile(appData + 'lis\lis2.bmp');
+    end;
+    if (i mod 2 = 0) then
+      PicShow1.BgPicture.LoadFromFile(appdata + 'lis\lis3.bmp');
  
-  if (i mod 3 = 0) then
-    i := 0;
+    if (i mod 3 = 0) then
+      i := 0;
+  except 
+  end;
 end;
 
 procedure TForm2.FormShow(Sender: TObject);
 begin
-  Timer1.Enabled := true;
+  try Timer1.Enabled := true; except end;
 end;
 
 procedure TForm2.FormHide(Sender: TObject);
 begin
-  Timer1.Enabled := false;
+  try  Timer1.Enabled := false; except end;
 end;
 
 end.

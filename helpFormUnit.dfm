@@ -13,13 +13,14 @@ object Form2: TForm2
   Font.Style = []
   OldCreateOrder = False
   Visible = True
+  OnCreate = FormCreate
   OnHide = FormHide
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel
     Left = 24
-    Top = 16
+    Top = 40
     Width = 191
     Height = 48
     Caption = #1047#1072#1082#1088#1086#1081#1090#1077', '#1095#1090#1086#1073#1099' '#1074#1077#1088#1085#1091#1090#1100#1089#1103' '#1082' '#1079#1072#1076#1072#1085#1080#1102
@@ -23500,7 +23501,7 @@ object Form2: TForm2
   object Timer1: TTimer
     Interval = 1500
     OnTimer = Timer1Timer
-    Left = 144
-    Top = 136
+    Left = 96
+    Top = 160
   end
 end
