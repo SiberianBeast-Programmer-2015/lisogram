@@ -41,8 +41,10 @@ implementation
 
 procedure TMap.FormActivate(Sender: TObject);
 begin
+try
   if (SplashForm.stopped = false)then 
     SplashForm.Show;
+except end;
 end;
 
 procedure TMap.BitBtn2Click(Sender: TObject);

@@ -41,20 +41,26 @@ begin
   WindowsMediaPlayer1.top := 0;
   WindowsMediaPlayer1.uiMode := 'none';
   
-  WindowsMediaPlayer1.URL := appData + 'splash.avi';  
+  WindowsMediaPlayer1.URL := appData + 'splash.avi';
 end;
 
 procedure TSplashForm.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-  WindowsMediaPlayer1.controls.stop;
-  WindowsMediaPlayer1.Close;
-  videoStopped;
+  try
+    WindowsMediaPlayer1.controls.stop;
+    WindowsMediaPlayer1.Close;
+    videoStopped;
+  except
+  end;
 end;
 
 procedure TSplashForm.FormResize(Sender: TObject);
 begin
-  WindowsMediaPlayer1.Width := SplashForm.Width - 10;
-  WindowsMediaPlayer1.Height := SplashForm.Height - 10;
+  try
+    WindowsMediaPlayer1.Width := SplashForm.Width - 10;
+    WindowsMediaPlayer1.Height := SplashForm.Height - 10;
+  except
+  end;
 end;
 
 procedure TSplashForm.WindowsMediaPlayer1PlayStateChange(ASender: TObject;
@@ -74,6 +80,11 @@ end;
 procedure TSplashForm.videoStopped;
 begin
   stopped := true;
+  try
+    SplashForm.Width := 1;
+    SplashForm.Height := 1;
+  except 
+  end;
 end;
 
 end.
