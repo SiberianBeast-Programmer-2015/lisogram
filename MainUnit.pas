@@ -30,11 +30,15 @@ type
     procedure ButtonCheckClick(Sender: TObject);
     procedure buttonHelpClick(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
+    procedure FormHide(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
   public
     { Public declarations }
     currTask: integer;
+    myThemeName: string;
+    procedure setTheme(themeName: string);
     procedure readTest(testFile: string);
     procedure loadTest(number: integer);
     procedure QueryBgImageLoad();
@@ -52,7 +56,7 @@ var
   list: TStringList;
   tasks: array of TStringList;
   
-  answer: string;   themeName: string;
+  answer: string;
   startLeft,startTop: integer; // WMP unknown behavior  
   i: integer;
 implementation
@@ -77,8 +81,8 @@ begin
     list := TStringList.Create;
     list.LoadFromFile(testFile);
 
-    themeName := getInfo(list[0]);
-    ThemeLabel.Caption := themeName;
+    myThemeName := getInfo(list[0]);
+    ThemeLabel.Caption := myThemeName;
 
     n := 1;
     SetLength(tasks,n+1);
@@ -125,7 +129,7 @@ begin
         Variant4.Text := element;
       if func = 'вариант5' then
         Variant5.Text := element;
-      if func = 'правильныйвариантномер' then     
+      if func = 'правильныйвариантномер' then
         answer := element;
     end;
   end;
@@ -149,9 +153,6 @@ begin
   QueryBgImageLoad(); // query area background image
   cleanFields;  
   buttonHelp.Visible := false;
-  currTask := 1;
-  readTest(appData + testName); // whole test to read
-  loadTest(currTask); // show the first test
 end;
 
 function TForm1.getUserAnswerString(): string;
@@ -205,9 +206,10 @@ end;
 
 procedure TForm1.buttonHelpClick(Sender: TObject);
 begin
-  Form2 := TForm2.Create(Application);
+  //Form2 := TForm2.Create(Application);
+  Application.CreateForm(TForm2,Form2);
   Form2.Show;
-  Form2.setThemeName(themeName);
+  Form2.setThemeName(myThemeName);
 end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);
@@ -227,6 +229,9 @@ end;
 
 procedure TForm1.cleanFields;
 begin
+  QueryLabel.Caption := '';
+  ThemeLabel.Caption := '';
+  
   variant1.Text := '';
   variant2.Text := '';
   variant3.Text := '';
@@ -238,6 +243,24 @@ begin
   CheckBox3.Checked := false;
   CheckBox4.Checked := false;
   CheckBox5.Checked := false;
+end;
+
+procedure TForm1.FormHide(Sender: TObject);
+begin
+  Timer1.Enabled := false;
+end;
+
+procedure TForm1.FormShow(Sender: TObject);
+begin
+  Timer1.Enabled := true;
+end;
+
+procedure TForm1.setTheme(themeName: string);
+begin
+  myThemeName := themeName;
+  currTask := 1;
+  readTest(appData + 'Materials\' + themeName + '.txt'); // whole test to read
+  loadTest(currTask); // show the first test
 end;
 
 end.

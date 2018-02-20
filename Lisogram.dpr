@@ -8,13 +8,17 @@ uses
   helpFormUnit in 'helpFormUnit.pas' {Form2},
   RxRichEd in 'RxRichEd.pas',
   SplashFormUnit in 'SplashFormUnit.pas' {SplashForm},
+  MapForm in 'MapForm.pas' {Map};
 
 {$R *.res}
 
 begin
   Application.Initialize;
-  //Application.CreateForm(TForm1, Form1);
-  //Application.CreateForm(TForm3, Form3);
+  
+  Application.CreateForm(TMap, Map);
   Application.CreateForm(TSplashForm, SplashForm); 
+ 
+ // Application.CreateForm(TMap, Map);
+  //Application.CreateForm(TForm2, Form2); // help form
   Application.Run;
 end.
