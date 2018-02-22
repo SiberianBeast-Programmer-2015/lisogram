@@ -49,6 +49,7 @@ type
     procedure doIfRightAnswer();
     procedure doIfFalseAnswer();
     procedure cleanFields();
+    procedure setQueryToCenter();
   end;
 const testName = 'test.txt';
 var
@@ -279,6 +280,16 @@ begin
   currTask := 1;
   readTest(appData + 'Materials\' + themeName + '.txt'); // whole test to read
   loadTest(currTask); // show the first test
+end;
+
+procedure TForm1.setQueryToCenter;
+var imageMediana, labelMediana: integer;
+begin
+  imageMediana := (image1.Height div 2) + image1.Top;
+  labelMediana := (imageMediana + (36 div 2)) - (QueryLabel.Height div 2);
+
+  QueryLabel.Top := labelMediana;
+  // image height median
 end;
 
 end.
