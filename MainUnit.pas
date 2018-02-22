@@ -9,23 +9,25 @@ uses
 
 type
   TForm1 = class(TForm)
-    Variant1: TEdit;
     CheckBox1: TCheckBox;
-    Variant2: TEdit;
     CheckBox2: TCheckBox;
-    Variant3: TEdit;
     CheckBox3: TCheckBox;
-    Variant4: TEdit;
     CheckBox4: TCheckBox;
     ButtonCheck: TButton;
     ThemeLabel: TLabel;
     buttonHelp: TButton;
     QueryLabel: TLabel;
     Image1: TImage;
-    variant5: TEdit;
     CheckBox5: TCheckBox;
     Timer1: TTimer;
     PicShow1: TPicShow;
+    TaskNumberLabel: TLabel;
+    Memo1: TMemo;
+    Memo2: TMemo;
+    Memo3: TMemo;
+    Memo4: TMemo;
+    Memo5: TMemo;
+    ContinueLabel: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure ButtonCheckClick(Sender: TObject);
     procedure buttonHelpClick(Sender: TObject);
@@ -47,6 +49,7 @@ type
     procedure doIfRightAnswer();
     procedure doIfFalseAnswer();
     procedure cleanFields();
+    procedure setQueryToCenter();
   end;
 const testName = 'test.txt';
 var
@@ -110,29 +113,43 @@ var i: integer; var func,element: string;
 begin
   with form1 do 
   begin
+    ThemeLabel.Caption := 'Тема: ' + myThemeName;
     for i := 0 to tasks[number].Count - 1 do
     begin
       func := getFunction(tasks[number][i]);
       element := getInfo(tasks[number][i]);
       if  func = 'тема' then
+      begin
         ThemeLabel.Caption := 'Тема: ' + element;
+        myThemeName := element;
+      end;
+      if func = 'продолжение' then
+      begin
+        ContinueLabel.Caption := ContinueLabel.Caption + #10#13 + element;
+      end;
       if func = 'вопрос' then
-      
-        QueryLabel.Caption := IntToStr(Form1.currTask) + '-й: ' + element;
+      begin      
+        QueryLabel.Caption := element;
+        QueryLabel.Top := 72; // default from form in designer
+        TaskNumberLabel.Caption := 'Вопрос № ' + IntToStr(Form1.currTask);
+        
+      end;
       if func = 'вариант1' then
-        Variant1.Text := element;
+        Memo1.Lines.Add(element);
       if func = 'вариант2' then
-        Variant2.Text := element;
+        Memo2.Lines.Add(element);
       if func = 'вариант3' then
-        Variant3.Text := element;
+        Memo3.Lines.Add(element);
       if func = 'вариант4' then
-        Variant4.Text := element;
+        Memo4.Lines.Add(element);
       if func = 'вариант5' then
-        Variant5.Text := element;
+        Memo5.Lines.Add(element);
       if func = 'правильныйвариантномер' then
         answer := element;
     end;
   end;
+  if ContinueLabel.Caption = '' then 
+    setQueryToCenter();
 end;
 
 procedure TForm1.QueryBgImageLoad();
@@ -151,7 +168,7 @@ end;
 procedure TForm1.FormCreate(Sender: TObject);
 begin
   QueryBgImageLoad(); // query area background image
-  cleanFields;  
+  cleanFields;
   buttonHelp.Visible := false;
 end;
 
@@ -159,13 +176,13 @@ function TForm1.getUserAnswerString(): string;
 var s: string;
 begin
   s := '';
-  if Form1.CheckBox1.Checked = true then
+  if CheckBox1.Checked = true then
     s := s + '1';
-  if Form1.CheckBox2.Checked = true then
+  if CheckBox2.Checked = true then
     s := s + '2';
-  if Form1.CheckBox3.Checked = true then
+  if CheckBox3.Checked = true then
     s := s + '3';
-  if Form1.CheckBox4.Checked = true then
+  if CheckBox4.Checked = true then
     s := s + '4';
   Result := s;
 end;
@@ -208,7 +225,6 @@ end;
 
 procedure TForm1.buttonHelpClick(Sender: TObject);
 begin
-  //Form2 := TForm2.Create(Application);
   Application.CreateForm(TForm2,Form2);
   Form2.Show;
   Form2.setThemeName(myThemeName);
@@ -232,13 +248,14 @@ end;
 procedure TForm1.cleanFields;
 begin
   QueryLabel.Caption := '';
+  ContinueLabel.Caption := '';
   ThemeLabel.Caption := '';
   
-  variant1.Text := '';
-  variant2.Text := '';
-  variant3.Text := '';
-  variant4.Text := '';
-  variant5.Text := '';
+  Memo1.Lines.Clear;
+  Memo2.Lines.Clear;
+  Memo3.Lines.Clear;
+  Memo4.Lines.Clear;
+  Memo5.Lines.Clear;
     
   CheckBox1.Checked := false;
   CheckBox2.Checked := false;
@@ -263,6 +280,16 @@ begin
   currTask := 1;
   readTest(appData + 'Materials\' + themeName + '.txt'); // whole test to read
   loadTest(currTask); // show the first test
+end;
+
+procedure TForm1.setQueryToCenter;
+var imageMediana, labelMediana: integer;
+begin
+  imageMediana := (image1.Height div 2) + image1.Top;
+  labelMediana := (imageMediana + (36 div 2)) - (QueryLabel.Height div 2);
+
+  QueryLabel.Top := labelMediana;
+  // image height median
 end;
 
 end.
