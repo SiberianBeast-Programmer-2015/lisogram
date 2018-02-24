@@ -43,7 +43,6 @@ type
     procedure setTheme(themeName: string);
     procedure readTest(testFile: string);
     procedure loadTest(number: integer);
-    procedure QueryBgImageLoad();
     function getUserAnswerString(): string;
     procedure testIsFinished();
     procedure doIfRightAnswer();
@@ -109,71 +108,73 @@ begin
 end;
 
 procedure TForm1.loadTest(number: integer);
-var i: integer; var func,element: string;
+var i: integer; 
+    func,element: string;
 begin
-  with form1 do 
+  ThemeLabel.Caption := 'Тема: ' + myThemeName;
+  for i := 0 to tasks[number].Count - 1 do
   begin
-    ThemeLabel.Caption := 'Тема: ' + myThemeName;
-    for i := 0 to tasks[number].Count - 1 do
+    func := getFunction(tasks[number][i]);
+    element := getInfo(tasks[number][i]);
+    if  func = 'тема' then
     begin
-      func := getFunction(tasks[number][i]);
-      element := getInfo(tasks[number][i]);
-      if  func = 'тема' then
-      begin
-        ThemeLabel.Caption := 'Тема: ' + element;
-        myThemeName := element;
-      end;
-      if func = 'продолжение' then
-      begin
-        ContinueLabel.Caption := ContinueLabel.Caption + #10#13 + element;
-      end;
-      if func = 'вопрос' then
-      begin      
-        QueryLabel.Caption := element;
-        QueryLabel.Top := 72; // default from form in designer
-        TaskNumberLabel.Caption := 'Вопрос № ' + IntToStr(Form1.currTask);
-        
-      end;
-      if func = 'вариант1' then
-        Memo1.Lines.Add(element);
-      if func = 'вариант2' then
-        Memo2.Lines.Add(element);
-      if func = 'вариант3' then
-        Memo3.Lines.Add(element);
-      if func = 'вариант4' then
-        Memo4.Lines.Add(element);
-      if func = 'вариант5' then
-        Memo5.Lines.Add(element);
-      if func = 'правильныйвариантномер' then
-        answer := element;
+      ThemeLabel.Caption := 'Тема: ' + element;
+      myThemeName := element;
     end;
+    if func = 'продолжение' then
+      ContinueLabel.Caption := ContinueLabel.Caption + #10#13 + element;
+    if func = 'вопрос' then
+    begin      
+      QueryLabel.Caption := element;
+      QueryLabel.Top := 72; // default value from the form's designer
+      TaskNumberLabel.Caption := 'Вопрос № ' + IntToStr(Form1.currTask);
+    end;
+    if func = 'вариант1' then 
+    begin 
+      Memo1.Lines.Add(element);
+      Memo1.Enabled := true;
+      CheckBox1.Enabled := true;
+    end;
+    if func = 'вариант2' then 
+    begin 
+      Memo2.Lines.Add(element);
+      Memo2.Enabled := true;
+      CheckBox2.Enabled := true;
+    end;
+    if func = 'вариант3' then 
+    begin 
+      Memo3.Lines.Add(element);
+      Memo3.Enabled := true;
+      CheckBox3.Enabled := true;
+    end;
+    if func = 'вариант4' then 
+    begin 
+      Memo4.Lines.Add(element);
+      Memo4.Enabled := true;
+      CheckBox4.Enabled := true;
+    end;
+    if func = 'вариант5' then 
+    begin 
+      Memo5.Lines.Add(element);
+      Memo5.Enabled := true;
+      CheckBox5.Enabled := true;
+    end;
+    if func = 'правильныйвариантномер' then
+      answer := element;
   end;
   if ContinueLabel.Caption = '' then 
     setQueryToCenter();
 end;
 
-procedure TForm1.QueryBgImageLoad();
-var bm: TBitmap;
-begin
-  bm := TBitmap.Create();
-  bm.LoadFromFile(appData + 'bgImage.bmp');
-  with form1 do
-  begin
-    Image1.Proportional := false;
-    Image1.Stretch := true;
-    Image1.Picture.Assign(bm);
-  end;
-end;
-
 procedure TForm1.FormCreate(Sender: TObject);
 begin
-  QueryBgImageLoad(); // query area background image
   cleanFields;
   buttonHelp.Visible := false;
 end;
 
 function TForm1.getUserAnswerString(): string;
-var s: string;
+var 
+  s: string;
 begin
   s := '';
   if CheckBox1.Checked = true then
@@ -225,24 +226,35 @@ end;
 
 procedure TForm1.buttonHelpClick(Sender: TObject);
 begin
-  Application.CreateForm(TForm2,Form2);
-  Form2.Show;
-  Form2.setThemeName(myThemeName);
+  if FileExists(appData + 'Materials\' + Trim(myThemeName) + '.rtf') then
+  begin
+    Application.CreateForm(TForm2,Form2);
+    Form2.Show;
+    Form2.setThemeName(myThemeName);
+  end
+  else
+    ShowMessage('нет такого файла справки! ' + #10#13 + 
+    appData + 'Materials\' + Trim(myThemeName) + '.rtf');
 end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);
 begin
-  Inc(i);
-  if (i mod 1 = 0) then
-  begin
-    PicShow1.BgPicture.LoadFromFile(appdata + 'lis\lis1.bmp');
-    PicShow1.Picture.LoadFromFile(appData + 'lis\lis2.bmp');
+  try
+    Inc(i);
+    if (i mod 2 = 0) then
+    begin
+      PicShow1.BgPicture.LoadFromFile(appdata + 'lis\lis3.bmp');
+    end;
+    if (i mod 3 = 0) then 
+      PicShow1.BgPicture.LoadFromFile(appData + 'lis\lis2.bmp');
+    if (i mod 4 = 0) then
+      PicShow1.BgPicture.LoadFromFile(appdata + 'lis\lis1.bmp');
+    if (i mod 5 = 0) then
+      i := 1;
+  except
+    Timer1.Enabled := false;
+    ShowMessage('Отсутствуют файлы анимации лиса!');
   end;
-  if (i mod 2 = 0) then 
-    PicShow1.BgPicture.LoadFromFile(appdata + 'lis\lis3.bmp');
- 
-  if (i mod 3 = 0) then
-    i := 0;
 end;
 
 procedure TForm1.cleanFields;
@@ -251,17 +263,17 @@ begin
   ContinueLabel.Caption := '';
   ThemeLabel.Caption := '';
   
-  Memo1.Lines.Clear;
-  Memo2.Lines.Clear;
-  Memo3.Lines.Clear;
-  Memo4.Lines.Clear;
-  Memo5.Lines.Clear;
+  Memo1.Lines.Clear; Memo1.Enabled := false;
+  Memo2.Lines.Clear; Memo2.Enabled := false;
+  Memo3.Lines.Clear; Memo3.Enabled := false;
+  Memo4.Lines.Clear; Memo4.Enabled := false;
+  Memo5.Lines.Clear; Memo5.Enabled := false;
     
-  CheckBox1.Checked := false;
-  CheckBox2.Checked := false;
-  CheckBox3.Checked := false;
-  CheckBox4.Checked := false;
-  CheckBox5.Checked := false;
+  CheckBox1.Checked := false;  CheckBox1.Enabled := false;
+  CheckBox2.Checked := false;  CheckBox2.Enabled := false;
+  CheckBox3.Checked := false;  CheckBox3.Enabled := false;
+  CheckBox4.Checked := false;  CheckBox4.Enabled := false;
+  CheckBox5.Checked := false;  CheckBox5.Enabled := false;
 end;
 
 procedure TForm1.FormHide(Sender: TObject);
@@ -272,6 +284,7 @@ end;
 procedure TForm1.FormShow(Sender: TObject);
 begin
   Timer1.Enabled := true;
+  Self.Top := 0;
 end;
 
 procedure TForm1.setTheme(themeName: string);
@@ -283,13 +296,15 @@ begin
 end;
 
 procedure TForm1.setQueryToCenter;
-var imageMediana, labelMediana: integer;
+const 
+  queryLabelHeight = 36;
+var 
+  imageMediana, labelMediana: integer;
 begin
   imageMediana := (image1.Height div 2) + image1.Top;
-  labelMediana := (imageMediana + (36 div 2)) - (QueryLabel.Height div 2);
+  labelMediana := (imageMediana + queryLabelHeight div 2) - (QueryLabel.Height div 2);
 
   QueryLabel.Top := labelMediana;
-  // image height median
 end;
 
 end.

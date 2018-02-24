@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, OleCtrls, WMPLib_TLB, ComCtrls,helpUnit,re_bmp,RxRichEd,
+  Dialogs, StdCtrls, OleCtrls, WMPLib_TLB, ComCtrls,helpUnit,RxRichEd,
   ExtCtrls, PicShow;
 
 type
@@ -24,7 +24,6 @@ type
   public
     procedure setThemeName(strThemeName: string);
   end;
-const string_file_not_found = 'file not found';
 var
   Form2: TForm2;
   richEdit: TRxRichEdit;
@@ -35,23 +34,24 @@ implementation
 
 procedure TForm2.swapRichEdit();
 begin
-try
-  with r do
-  begin
-    richEdit := TRxRichEdit.Create(Form2); // form is owner
-    richEdit.Width := Width;
-    richEdit.Height := Height;
-    richEdit.Left := Left;
-    richEdit.Top := Top;
-    richEdit.Visible := Visible;
+  try
+    with r do
+    begin
+      richEdit := TRxRichEdit.Create(Form2); // form is owner
+      richEdit.Width := Width;
+      richEdit.Height := Height;
+      richEdit.Left := Left;
+      richEdit.Top := Top;
+      richEdit.Visible := Visible;
+      richEdit.Font.Charset := RUSSIAN_CHARSET;
 
-    richEdit.Parent := Parent;
+      richEdit.Parent := Parent;
+    end;
+    r.Free;
+    r := nil;
+  except
+    showmessage('Не удается создать расширенный RichEdit!');
   end;
-  r.Free;
-  r := nil;
-except
-showmessage('Не удается стартовать RichEdit');
-end;
 end;
 
 procedure TForm2.FormCreate(Sender: TObject);
@@ -69,13 +69,14 @@ procedure TForm2.loadHelp(themeNm: string);
 begin
   if Not FileExists(themeNm) then
   begin
-    ShowMessage('no such file!');
-    //richedit.Lines.Add(string_file_not_found + ' at ' + themeNm);
+    ShowMessage('Нет такого файла! ' + themeNm);
     Exit;
   end;
   try
     richEdit.Lines.LoadFromFile(themeNm);
-  except on E:Exception do ShowMessage(e.Message);end;
+  except 
+    on E:Exception do ShowMessage('ошибка при загрузке справки: ' + e.Message);
+  end;
 end;
 
 procedure TForm2.Timer1Timer(Sender: TObject);
@@ -89,10 +90,10 @@ begin
     end;
     if (i mod 2 = 0) then
       PicShow1.BgPicture.LoadFromFile(appdata + 'lis\lis3.bmp');
- 
     if (i mod 3 = 0) then
       i := 0;
   except 
+    Timer1.Enabled := false;
   end;
 end;
 

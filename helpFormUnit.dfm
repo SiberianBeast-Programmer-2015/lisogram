@@ -12,6 +12,7 @@ object Form2: TForm2
   Font.Name = 'MS Sans Serif'
   Font.Style = []
   OldCreateOrder = False
+  Position = poScreenCenter
   Visible = True
   OnCreate = FormCreate
   OnHide = FormHide
@@ -24,7 +25,7 @@ object Form2: TForm2
     Width = 191
     Height = 48
     Caption = #1047#1072#1082#1088#1086#1081#1090#1077', '#1095#1090#1086#1073#1099' '#1074#1077#1088#1085#1091#1090#1100#1089#1103' '#1082' '#1079#1072#1076#1072#1085#1080#1102
-    Font.Charset = DEFAULT_CHARSET
+    Font.Charset = RUSSIAN_CHARSET
     Font.Color = clWindowText
     Font.Height = -19
     Font.Name = 'MS Sans Serif'
@@ -37,8 +38,14 @@ object Form2: TForm2
     Top = 8
     Width = 705
     Height = 401
+    Font.Charset = RUSSIAN_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
     Lines.Strings = (
       'r')
+    ParentFont = False
     ScrollBars = ssVertical
     TabOrder = 0
   end
@@ -23499,7 +23506,7 @@ object Form2: TForm2
     TabOrder = 1
   end
   object Timer1: TTimer
-    Interval = 1500
+    Interval = 500
     OnTimer = Timer1Timer
     Left = 96
     Top = 160

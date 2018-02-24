@@ -11,6 +11,7 @@ object Map: TMap
   Font.Name = 'MS Sans Serif'
   Font.Style = []
   OldCreateOrder = False
+  Position = poScreenCenter
   OnActivate = FormActivate
   OnCreate = FormCreate
   PixelsPerInch = 96
@@ -21,7 +22,7 @@ object Map: TMap
     Width = 185
     Height = 113
     Caption = #1041#1077#1079#1091#1076#1072#1088#1085#1099#1077
-    Font.Charset = DEFAULT_CHARSET
+    Font.Charset = RUSSIAN_CHARSET
     Font.Color = clWindowText
     Font.Height = -16
     Font.Name = 'MS Sans Serif'
@@ -1054,7 +1055,7 @@ object Map: TMap
     Width = 185
     Height = 113
     Caption = #1074#1074#1086#1076#1085#1099#1077' '#1082#1086#1085#1089#1090#1088#1091#1082#1094#1080#1080
-    Font.Charset = DEFAULT_CHARSET
+    Font.Charset = RUSSIAN_CHARSET
     Font.Color = clWindowText
     Font.Height = -16
     Font.Name = 'MS Sans Serif'
@@ -2088,7 +2089,7 @@ object Map: TMap
     Width = 193
     Height = 113
     Caption = #1051#1077#1082#1089#1080#1095#1077#1089#1082#1080#1077' '#1085#1086#1088#1084#1099
-    Font.Charset = DEFAULT_CHARSET
+    Font.Charset = RUSSIAN_CHARSET
     Font.Color = clWindowText
     Font.Height = -16
     Font.Name = 'MS Sans Serif'
@@ -3121,7 +3122,7 @@ object Map: TMap
     Width = 193
     Height = 113
     Caption = #1055#1088#1072#1074#1086#1087#1080#1089#1072#1085#1080#1077' '#1053'-'#1053#1053
-    Font.Charset = DEFAULT_CHARSET
+    Font.Charset = RUSSIAN_CHARSET
     Font.Color = clWindowText
     Font.Height = -16
     Font.Name = 'MS Sans Serif'
@@ -4154,7 +4155,7 @@ object Map: TMap
     Width = 193
     Height = 113
     Caption = #1059#1076#1072#1088#1077#1085#1080#1077
-    Font.Charset = DEFAULT_CHARSET
+    Font.Charset = RUSSIAN_CHARSET
     Font.Color = clWindowText
     Font.Height = -16
     Font.Name = 'MS Sans Serif'
@@ -5187,7 +5188,7 @@ object Map: TMap
     Width = 193
     Height = 113
     Caption = #1042#1089#1090#1072#1074#1085#1099#1077' '#1082#1086#1085#1089#1090#1088#1091#1082#1094#1080#1080
-    Font.Charset = DEFAULT_CHARSET
+    Font.Charset = RUSSIAN_CHARSET
     Font.Color = clWindowText
     Font.Height = -16
     Font.Name = 'MS Sans Serif'
@@ -6220,7 +6221,7 @@ object Map: TMap
     Width = 193
     Height = 113
     Caption = #1057#1057#1055
-    Font.Charset = DEFAULT_CHARSET
+    Font.Charset = RUSSIAN_CHARSET
     Font.Color = clWindowText
     Font.Height = -16
     Font.Name = 'MS Sans Serif'
