@@ -50,6 +50,11 @@ end;
 procedure TMap.FormCreate(Sender: TObject);
 begin
   created := false;
+  if IsAllFilesExists() = false then
+  begin
+    ShowMessage('Не все файлы присутствуют, приложение будет закрыто.');
+    Application.Terminate;
+  end;
 end;
 
 procedure TMap.dispatchTest(Sender: TObject);
