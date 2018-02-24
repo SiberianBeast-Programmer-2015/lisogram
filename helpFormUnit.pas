@@ -43,6 +43,7 @@ begin
       richEdit.Left := Left;
       richEdit.Top := Top;
       richEdit.Visible := Visible;
+      richEdit.Font.Charset := RUSSIAN_CHARSET;
 
       richEdit.Parent := Parent;
     end;

@@ -1088,7 +1088,7 @@ object Form1: TForm1
     Alignment = taCenter
     AutoSize = False
     Caption = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077' '#1090#1077#1084#1099' '#1090#1077#1089#1090#1072
-    Font.Charset = DEFAULT_CHARSET
+    Font.Charset = RUSSIAN_CHARSET
     Font.Color = clWindowText
     Font.Height = -24
     Font.Name = 'MS Sans Serif'
@@ -1105,7 +1105,7 @@ object Form1: TForm1
     AutoSize = False
     Caption = #1042#1086#1087#1088#1086#1089' '#1080#1079' '#1090#1077#1089#1090#1072'. '#1042' '#1085#1072#1095#1072#1083#1077' '#1080#1076#1077#1090' '#1085#1086#1084#1077#1088':  1'#1081': '#1074#1086#1087#1088#1086#1089'_'#1090#1072#1082#1086#1081'_'#1090#1086
     Color = clBtnFace
-    Font.Charset = DEFAULT_CHARSET
+    Font.Charset = RUSSIAN_CHARSET
     Font.Color = clWindowText
     Font.Height = -16
     Font.Name = 'MS Sans Serif'
@@ -1121,7 +1121,7 @@ object Form1: TForm1
     Width = 106
     Height = 24
     Caption = #1042#1086#1087#1088#1086#1089' '#8470' 1'
-    Font.Charset = DEFAULT_CHARSET
+    Font.Charset = RUSSIAN_CHARSET
     Font.Color = clWindowText
     Font.Height = -19
     Font.Name = 'MS Sans Serif'
@@ -1135,7 +1135,7 @@ object Form1: TForm1
     Height = 177
     AutoSize = False
     Caption = 'ContinueLabel'
-    Font.Charset = DEFAULT_CHARSET
+    Font.Charset = RUSSIAN_CHARSET
     Font.Color = clWindowText
     Font.Height = -16
     Font.Name = 'MS Sans Serif'
@@ -1210,7 +1210,7 @@ object Form1: TForm1
     Width = 129
     Height = 41
     Caption = #1044#1072#1083#1077#1077
-    Font.Charset = DEFAULT_CHARSET
+    Font.Charset = RUSSIAN_CHARSET
     Font.Color = clWindowText
     Font.Height = -19
     Font.Name = 'MS Sans Serif'
@@ -1226,7 +1226,7 @@ object Form1: TForm1
     Width = 227
     Height = 33
     Caption = #1054#1073#1088#1072#1090#1080#1090#1100#1089#1103' '#1082' '#1089#1087#1088#1072#1074#1082#1077
-    Font.Charset = DEFAULT_CHARSET
+    Font.Charset = RUSSIAN_CHARSET
     Font.Color = clWindowText
     Font.Height = -19
     Font.Name = 'MS Sans Serif'
@@ -24700,22 +24700,29 @@ object Form1: TForm1
       FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
     BorderWidth = 1
     Center = True
-    Delay = 1
+    Delay = 200
     Proportional = True
     Stretch = True
-    Step = 1
+    Step = 5
     TabOrder = 7
+    Threaded = False
   end
   object Memo1: TMemo
     Left = 144
     Top = 328
     Width = 817
     Height = 49
+    Font.Charset = RUSSIAN_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
     Lines.Strings = (
       
         #1042#1089#1077' '#1079#1085#1072#1082#1080' '#1087#1088#1077#1087#1080#1085#1072#1085#1080#1103', '#1082#1086#1090#1086#1088#1099#1077' '#1089#1090#1086#1103#1090' '#1085#1072' '#1084#1077#1089#1090#1077' '#1088#1072#1079#1088#1099#1074#1072' '#1087#1088#1077#1076#1083#1086#1078#1077#1085#1080#1103 +
         ' '#1074#1089#1090#1072#1074#1085#1086#1081' '#1082#1086#1085#1089#1090#1088#1091#1082#1094#1080#1080', '#1074#1099#1076#1077#1083#1077#1083#1103#1077#1084#1086#1081' '#1089#1082#1086#1073#1082#1072#1084#1080', '#1086#1084#1077#1097#1072#1102#1090#1089#1103' '#1087#1086#1089#1083#1077' '#1089#1082 +
         #1086#1073#1086#1082)
+    ParentFont = False
     TabOrder = 8
   end
   object Memo2: TMemo
@@ -24723,11 +24730,17 @@ object Form1: TForm1
     Top = 392
     Width = 817
     Height = 49
+    Font.Charset = RUSSIAN_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
     Lines.Strings = (
       
         #1042#1089#1077' '#1079#1085#1072#1082#1080' '#1087#1088#1077#1087#1080#1085#1072#1085#1080#1103', '#1082#1086#1090#1086#1088#1099#1077' '#1089#1090#1086#1103#1090' '#1085#1072' '#1084#1077#1089#1090#1077' '#1088#1072#1079#1088#1099#1074#1072' '#1087#1088#1077#1076#1083#1086#1078#1077#1085#1080#1103 +
         ' '#1074#1089#1090#1072#1074#1085#1086#1081' '#1082#1086#1085#1089#1090#1088#1091#1082#1094#1080#1080', '#1074#1099#1076#1077#1083#1077#1083#1103#1077#1084#1086#1081' '#1089#1082#1086#1073#1082#1072#1084#1080', '
       #1087#1086#1084#1077#1097#1072#1102#1090#1089#1103' '#1087#1086#1089#1083#1077' '#1089#1082#1086#1073#1086#1082)
+    ParentFont = False
     TabOrder = 9
   end
   object Memo3: TMemo
@@ -24735,11 +24748,17 @@ object Form1: TForm1
     Top = 456
     Width = 817
     Height = 49
+    Font.Charset = RUSSIAN_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
     Lines.Strings = (
       
         #1042#1089#1077' '#1079#1085#1072#1082#1080' '#1087#1088#1077#1087#1080#1085#1072#1085#1080#1103', '#1082#1086#1090#1086#1088#1099#1077' '#1089#1090#1086#1103#1090' '#1085#1072' '#1084#1077#1089#1090#1077' '#1088#1072#1079#1088#1099#1074#1072' '#1087#1088#1077#1076#1083#1086#1078#1077#1085#1080#1103 +
         ' '#1074#1089#1090#1072#1074#1085#1086#1081' '#1082#1086#1085#1089#1090#1088#1091#1082#1094#1080#1080', '#1074#1099#1076#1077#1083#1077#1083#1103#1077#1084#1086#1081' '#1089#1082#1086#1073#1082#1072#1084#1080', '
       #1087#1086#1084#1077#1097#1072#1102#1090#1089#1103' '#1087#1086#1089#1083#1077' '#1089#1082#1086#1073#1086#1082)
+    ParentFont = False
     TabOrder = 10
   end
   object Memo4: TMemo
@@ -24747,11 +24766,17 @@ object Form1: TForm1
     Top = 520
     Width = 817
     Height = 49
+    Font.Charset = RUSSIAN_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
     Lines.Strings = (
       
         #1042#1089#1077' '#1079#1085#1072#1082#1080' '#1087#1088#1077#1087#1080#1085#1072#1085#1080#1103', '#1082#1086#1090#1086#1088#1099#1077' '#1089#1090#1086#1103#1090' '#1085#1072' '#1084#1077#1089#1090#1077' '#1088#1072#1079#1088#1099#1074#1072' '#1087#1088#1077#1076#1083#1086#1078#1077#1085#1080#1103 +
         ' '#1074#1089#1090#1072#1074#1085#1086#1081' '#1082#1086#1085#1089#1090#1088#1091#1082#1094#1080#1080', '#1074#1099#1076#1077#1083#1077#1083#1103#1077#1084#1086#1081' '#1089#1082#1086#1073#1082#1072#1084#1080', '
       #1087#1086#1084#1077#1097#1072#1102#1090#1089#1103' '#1087#1086#1089#1083#1077' '#1089#1082#1086#1073#1086#1082)
+    ParentFont = False
     TabOrder = 11
   end
   object Memo5: TMemo
@@ -24759,16 +24784,22 @@ object Form1: TForm1
     Top = 584
     Width = 817
     Height = 49
+    Font.Charset = RUSSIAN_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
     Lines.Strings = (
       
         #1042#1089#1077' '#1079#1085#1072#1082#1080' '#1087#1088#1077#1087#1080#1085#1072#1085#1080#1103', '#1082#1086#1090#1086#1088#1099#1077' '#1089#1090#1086#1103#1090' '#1085#1072' '#1084#1077#1089#1090#1077' '#1088#1072#1079#1088#1099#1074#1072' '#1087#1088#1077#1076#1083#1086#1078#1077#1085#1080#1103 +
         ' '#1074#1089#1090#1072#1074#1085#1086#1081' '#1082#1086#1085#1089#1090#1088#1091#1082#1094#1080#1080', '#1074#1099#1076#1077#1083#1077#1083#1103#1077#1084#1086#1081' '#1089#1082#1086#1073#1082#1072#1084#1080', '
       #1087#1086#1084#1077#1097#1072#1102#1090#1089#1103' '#1087#1086#1089#1083#1077' '#1089#1082#1086#1073#1086#1082)
+    ParentFont = False
     TabOrder = 12
   end
   object Timer1: TTimer
     Enabled = False
-    Interval = 1500
+    Interval = 500
     OnTimer = Timer1Timer
     Left = 8
     Top = 232
