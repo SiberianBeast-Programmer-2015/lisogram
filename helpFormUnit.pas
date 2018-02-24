@@ -69,13 +69,13 @@ procedure TForm2.loadHelp(themeNm: string);
 begin
   if Not FileExists(themeNm) then
   begin
-    ShowMessage('Нет такого файла!');
+    ShowMessage('Нет такого файла! ' + themeNm);
     Exit;
   end;
   try
     richEdit.Lines.LoadFromFile(themeNm);
   except 
-    on E:Exception do ShowMessage(e.Message);
+    on E:Exception do ShowMessage('ошибка при загрузке справки: ' + e.Message);
   end;
 end;
 
@@ -93,6 +93,7 @@ begin
     if (i mod 3 = 0) then
       i := 0;
   except 
+    Timer1.Enabled := false;
   end;
 end;
 

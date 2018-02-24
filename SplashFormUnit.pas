@@ -44,10 +44,9 @@ begin
   
     try
       WindowsMediaPlayer1.URL := appData + splashVideoName;
-
-      videoStopped;
     except
       ShowMessage('Такой файл не найден: ' + appData + splashVideoName);
+      videoStopped;
     end;
   except
     showMessage('Не удалось запустить форму!');

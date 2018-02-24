@@ -70,7 +70,7 @@ begin
     Form1.Show;
   end
   else
-    ShowMessage('пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ!');
+    ShowMessage('Не найден такой файл!');
   end
   else
   begin
