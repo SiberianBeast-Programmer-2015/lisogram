@@ -31,17 +31,27 @@ implementation
 
 procedure TSplashForm.FormCreate(Sender: TObject);
 begin
-  stopped := false;
-  SplashForm.Width := Screen.Width;
-  SplashForm.Height := Screen.Height;
+  try
+    stopped := false;
+    SplashForm.Width := Screen.Width;
+    SplashForm.Height := Screen.Height;
   
-  WindowsMediaPlayer1.Width  := SplashForm.Width;
-  WindowsMediaPlayer1.Height := SplashForm.Height;
-  WindowsMediaPlayer1.Left := 0;
-  WindowsMediaPlayer1.top := 0;
-  WindowsMediaPlayer1.uiMode := 'none';
+    WindowsMediaPlayer1.Width  := SplashForm.Width;
+    WindowsMediaPlayer1.Height := SplashForm.Height;
+    WindowsMediaPlayer1.Left := 0;
+    WindowsMediaPlayer1.top := 0;
+    WindowsMediaPlayer1.uiMode := 'none';
   
-  WindowsMediaPlayer1.URL := appData + splashVideoName;
+    try
+      WindowsMediaPlayer1.URL := appData + splashVideoName;
+
+      videoStopped;
+    except
+      ShowMessage('Такой файл не найден: ' + appData + splashVideoName);
+    end;
+  except
+    showMessage('Не удалось запустить форму!');
+  end;
 end;
 
 procedure TSplashForm.FormClose(Sender: TObject; var Action: TCloseAction);
