@@ -129,11 +129,36 @@ begin
       QueryLabel.Top := 72; // default value from the form's designer
       TaskNumberLabel.Caption := 'Вопрос № ' + IntToStr(Form1.currTask);
     end;
-    if func = 'вариант1' then Memo1.Lines.Add(element);
-    if func = 'вариант2' then Memo2.Lines.Add(element);
-    if func = 'вариант3' then Memo3.Lines.Add(element);
-    if func = 'вариант4' then Memo4.Lines.Add(element);
-    if func = 'вариант5' then Memo5.Lines.Add(element);
+    if func = 'вариант1' then 
+    begin 
+      Memo1.Lines.Add(element);
+      Memo1.Enabled := true;
+      CheckBox1.Enabled := true;
+    end;
+    if func = 'вариант2' then 
+    begin 
+      Memo2.Lines.Add(element);
+      Memo2.Enabled := true;
+      CheckBox2.Enabled := true;
+    end;
+    if func = 'вариант3' then 
+    begin 
+      Memo3.Lines.Add(element);
+      Memo3.Enabled := true;
+      CheckBox3.Enabled := true;
+    end;
+    if func = 'вариант4' then 
+    begin 
+      Memo4.Lines.Add(element);
+      Memo4.Enabled := true;
+      CheckBox4.Enabled := true;
+    end;
+    if func = 'вариант5' then 
+    begin 
+      Memo5.Lines.Add(element);
+      Memo5.Enabled := true;
+      CheckBox5.Enabled := true;
+    end;
     if func = 'правильныйвариантномер' then
       answer := element;
   end;
@@ -208,7 +233,7 @@ begin
     Form2.setThemeName(myThemeName);
   end
   else
-    ShowMessage('пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ! ' + #10#13 + 
+    ShowMessage('нет такого файла справки! ' + #10#13 + 
     appData + 'Materials\' + Trim(myThemeName) + '.rtf');
 end;
 
@@ -238,17 +263,17 @@ begin
   ContinueLabel.Caption := '';
   ThemeLabel.Caption := '';
   
-  Memo1.Lines.Clear;
-  Memo2.Lines.Clear;
-  Memo3.Lines.Clear;
-  Memo4.Lines.Clear;
-  Memo5.Lines.Clear;
+  Memo1.Lines.Clear; Memo1.Enabled := false;
+  Memo2.Lines.Clear; Memo2.Enabled := false;
+  Memo3.Lines.Clear; Memo3.Enabled := false;
+  Memo4.Lines.Clear; Memo4.Enabled := false;
+  Memo5.Lines.Clear; Memo5.Enabled := false;
     
-  CheckBox1.Checked := false;
-  CheckBox2.Checked := false;
-  CheckBox3.Checked := false;
-  CheckBox4.Checked := false;
-  CheckBox5.Checked := false;
+  CheckBox1.Checked := false;  CheckBox1.Enabled := false;
+  CheckBox2.Checked := false;  CheckBox2.Enabled := false;
+  CheckBox3.Checked := false;  CheckBox3.Enabled := false;
+  CheckBox4.Checked := false;  CheckBox4.Enabled := false;
+  CheckBox5.Checked := false;  CheckBox5.Enabled := false;
 end;
 
 procedure TForm1.FormHide(Sender: TObject);
@@ -259,6 +284,7 @@ end;
 procedure TForm1.FormShow(Sender: TObject);
 begin
   Timer1.Enabled := true;
+  Self.Top := 0;
 end;
 
 procedure TForm1.setTheme(themeName: string);
