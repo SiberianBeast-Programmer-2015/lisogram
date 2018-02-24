@@ -43,7 +43,6 @@ type
     procedure setTheme(themeName: string);
     procedure readTest(testFile: string);
     procedure loadTest(number: integer);
-    procedure QueryBgImageLoad();
     function getUserAnswerString(): string;
     procedure testIsFinished();
     procedure doIfRightAnswer();
@@ -109,71 +108,48 @@ begin
 end;
 
 procedure TForm1.loadTest(number: integer);
-var i: integer; var func,element: string;
+var i: integer; 
+    func,element: string;
 begin
-  with form1 do 
+  ThemeLabel.Caption := 'Тема: ' + myThemeName;
+  for i := 0 to tasks[number].Count - 1 do
   begin
-    ThemeLabel.Caption := 'Тема: ' + myThemeName;
-    for i := 0 to tasks[number].Count - 1 do
+    func := getFunction(tasks[number][i]);
+    element := getInfo(tasks[number][i]);
+    if  func = 'тема' then
     begin
-      func := getFunction(tasks[number][i]);
-      element := getInfo(tasks[number][i]);
-      if  func = 'тема' then
-      begin
-        ThemeLabel.Caption := 'Тема: ' + element;
-        myThemeName := element;
-      end;
-      if func = 'продолжение' then
-      begin
-        ContinueLabel.Caption := ContinueLabel.Caption + #10#13 + element;
-      end;
-      if func = 'вопрос' then
-      begin      
-        QueryLabel.Caption := element;
-        QueryLabel.Top := 72; // default from form in designer
-        TaskNumberLabel.Caption := 'Вопрос № ' + IntToStr(Form1.currTask);
-        
-      end;
-      if func = 'вариант1' then
-        Memo1.Lines.Add(element);
-      if func = 'вариант2' then
-        Memo2.Lines.Add(element);
-      if func = 'вариант3' then
-        Memo3.Lines.Add(element);
-      if func = 'вариант4' then
-        Memo4.Lines.Add(element);
-      if func = 'вариант5' then
-        Memo5.Lines.Add(element);
-      if func = 'правильныйвариантномер' then
-        answer := element;
+      ThemeLabel.Caption := 'Тема: ' + element;
+      myThemeName := element;
     end;
+    if func = 'продолжение' then
+      ContinueLabel.Caption := ContinueLabel.Caption + #10#13 + element;
+    if func = 'вопрос' then
+    begin      
+      QueryLabel.Caption := element;
+      QueryLabel.Top := 72; // default value from the form's designer
+      TaskNumberLabel.Caption := 'Вопрос № ' + IntToStr(Form1.currTask);
+    end;
+    if func = 'вариант1' then Memo1.Lines.Add(element);
+    if func = 'вариант2' then Memo2.Lines.Add(element);
+    if func = 'вариант3' then Memo3.Lines.Add(element);
+    if func = 'вариант4' then Memo4.Lines.Add(element);
+    if func = 'вариант5' then Memo5.Lines.Add(element);
+    if func = 'правильныйвариантномер' then
+      answer := element;
   end;
   if ContinueLabel.Caption = '' then 
     setQueryToCenter();
 end;
 
-procedure TForm1.QueryBgImageLoad();
-var bm: TBitmap;
-begin
-  bm := TBitmap.Create();
-  bm.LoadFromFile(appData + 'bgImage.bmp');
-  with form1 do
-  begin
-    Image1.Proportional := false;
-    Image1.Stretch := true;
-    Image1.Picture.Assign(bm);
-  end;
-end;
-
 procedure TForm1.FormCreate(Sender: TObject);
 begin
-  QueryBgImageLoad(); // query area background image
   cleanFields;
   buttonHelp.Visible := false;
 end;
 
 function TForm1.getUserAnswerString(): string;
-var s: string;
+var 
+  s: string;
 begin
   s := '';
   if CheckBox1.Checked = true then
@@ -283,13 +259,15 @@ begin
 end;
 
 procedure TForm1.setQueryToCenter;
-var imageMediana, labelMediana: integer;
+const 
+  queryLabelHeight = 36;
+var 
+  imageMediana, labelMediana: integer;
 begin
   imageMediana := (image1.Height div 2) + image1.Top;
-  labelMediana := (imageMediana + (36 div 2)) - (QueryLabel.Height div 2);
+  labelMediana := (imageMediana + queryLabelHeight div 2) - (QueryLabel.Height div 2);
 
   QueryLabel.Top := labelMediana;
-  // image height median
 end;
 
 end.

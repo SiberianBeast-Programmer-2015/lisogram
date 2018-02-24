@@ -47,11 +47,6 @@ try
 except end;
 end;
 
-procedure TMap.BitBtn2Click(Sender: TObject);
-begin
-  dispatchTest(Sender);
-end;
-
 procedure TMap.FormCreate(Sender: TObject);
 begin
   created := false;
@@ -69,7 +64,7 @@ begin
     try 
       Form1.Show; 
     except 
-      showmessage('cannot show');
+      showmessage('Не могу отобразить форму');
       exit;
     end;
   end;  //else
@@ -78,39 +73,44 @@ begin
       try
         Form1.setTheme((Sender as TBitBtn).Caption);
       except
-        showMessage('cannot load by caption!');
+        showMessage('Такого файла справки не найдено!');
       end; //try
     end;//if
 end; //proc
 
 procedure TMap.BitBtn1Click(Sender: TObject);
 begin
-dispatchTest(Sender);
+  dispatchTest(Sender);
+end;
+
+procedure TMap.BitBtn2Click(Sender: TObject);
+begin
+  dispatchTest(Sender);
 end;
 
 procedure TMap.BitBtn3Click(Sender: TObject);
 begin
-dispatchTest(Sender);
+  dispatchTest(Sender);
 end;
 
 procedure TMap.BitBtn4Click(Sender: TObject);
 begin
-dispatchTest(Sender);
+  dispatchTest(Sender);
 end;
 
 procedure TMap.BitBtn5Click(Sender: TObject);
 begin
-dispatchTest(Sender);
+  dispatchTest(Sender);
 end;
 
 procedure TMap.BitBtn6Click(Sender: TObject);
 begin
-dispatchTest(Sender);
+  dispatchTest(Sender);
 end;
 
 procedure TMap.BitBtn7Click(Sender: TObject);
 begin
-dispatchTest(Sender);
+  dispatchTest(Sender);
 end;
 
 end.

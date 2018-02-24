@@ -24767,6 +24767,7 @@ object Form1: TForm1
     TabOrder = 12
   end
   object Timer1: TTimer
+    Enabled = False
     Interval = 1500
     OnTimer = Timer1Timer
     Left = 8
