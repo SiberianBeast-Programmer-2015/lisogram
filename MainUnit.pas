@@ -208,17 +208,22 @@ end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);
 begin
-  Inc(i);
-  if (i mod 1 = 0) then
-  begin
-    PicShow1.BgPicture.LoadFromFile(appdata + 'lis\lis1.bmp');
-    PicShow1.Picture.LoadFromFile(appData + 'lis\lis2.bmp');
-  end;
-  if (i mod 2 = 0) then 
-    PicShow1.BgPicture.LoadFromFile(appdata + 'lis\lis3.bmp');
+  try
+    Inc(i);
+    if (i mod 1 = 0) then
+    begin
+      PicShow1.BgPicture.LoadFromFile(appdata + 'lis\lis1.bmp');
+      PicShow1.Picture.LoadFromFile(appData + 'lis\lis2.bmp');
+    end;
+    if (i mod 2 = 0) then 
+      PicShow1.BgPicture.LoadFromFile(appdata + 'lis\lis3.bmp');
  
-  if (i mod 3 = 0) then
-    i := 0;
+    if (i mod 3 = 0) then
+      i := 0;
+  except
+    Timer1.Enabled := false;
+    ShowMessage('Отсутствуют файлы анимации лиса!');
+  end;
 end;
 
 procedure TForm1.cleanFields;
