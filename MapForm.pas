@@ -58,11 +58,19 @@ begin
 end;
 
 procedure TMap.dispatchTest(Sender: TObject);
+var fl: string;
 begin
   if Created = false then
   begin
+  if (Sender is TBitBtn) then
+    fl := appData + 'Materials\' + (Sender as TBitBtn).Caption + '.txt';
+  if FileExists(fl) then
+  begin
     Application.CreateForm(TForm1,Form1);
     Form1.Show;
+  end
+  else
+    ShowMessage('�� ������ ����� ����!');
   end
   else
   begin

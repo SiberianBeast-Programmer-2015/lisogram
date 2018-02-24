@@ -201,25 +201,31 @@ end;
 
 procedure TForm1.buttonHelpClick(Sender: TObject);
 begin
-  Application.CreateForm(TForm2,Form2);
-  Form2.Show;
-  Form2.setThemeName(myThemeName);
+  if FileExists(appData + 'Materials\' + Trim(myThemeName) + '.rtf') then
+  begin
+    Application.CreateForm(TForm2,Form2);
+    Form2.Show;
+    Form2.setThemeName(myThemeName);
+  end
+  else
+    ShowMessage('пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ! ' + #10#13 + 
+    appData + 'Materials\' + Trim(myThemeName) + '.rtf');
 end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);
 begin
   try
     Inc(i);
-    if (i mod 1 = 0) then
+    if (i mod 2 = 0) then
     begin
-      PicShow1.BgPicture.LoadFromFile(appdata + 'lis\lis1.bmp');
-      PicShow1.Picture.LoadFromFile(appData + 'lis\lis2.bmp');
-    end;
-    if (i mod 2 = 0) then 
       PicShow1.BgPicture.LoadFromFile(appdata + 'lis\lis3.bmp');
- 
-    if (i mod 3 = 0) then
-      i := 0;
+    end;
+    if (i mod 3 = 0) then 
+      PicShow1.BgPicture.LoadFromFile(appData + 'lis\lis2.bmp');
+    if (i mod 4 = 0) then
+      PicShow1.BgPicture.LoadFromFile(appdata + 'lis\lis1.bmp');
+    if (i mod 5 = 0) then
+      i := 1;
   except
     Timer1.Enabled := false;
     ShowMessage('Отсутствуют файлы анимации лиса!');
