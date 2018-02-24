@@ -8,7 +8,8 @@ function appPath(): string;
 function getFunction(item: string): string;
 function getInfo(item: string):string;
 function appData(): string;
-//Procedure setline(WhichEdit:TRichedit;Linepos,charpos:integer);
+
+const splashVideoName = 'splash.avi';
 //----------------------------------------------------------------------------
 implementation
 function appData(): string;

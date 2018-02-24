@@ -41,7 +41,7 @@ begin
   WindowsMediaPlayer1.top := 0;
   WindowsMediaPlayer1.uiMode := 'none';
   
-  WindowsMediaPlayer1.URL := appData + 'splash.avi';
+  WindowsMediaPlayer1.URL := appData + splashVideoName;
 end;
 
 procedure TSplashForm.FormClose(Sender: TObject; var Action: TCloseAction);
