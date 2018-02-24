@@ -19,7 +19,6 @@ object SplashForm: TSplashForm
   WindowState = wsMaximized
   OnClose = FormClose
   OnCreate = FormCreate
-  OnResize = FormResize
   PixelsPerInch = 96
   TextHeight = 13
   object WindowsMediaPlayer1: TWindowsMediaPlayer

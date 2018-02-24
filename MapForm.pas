@@ -41,10 +41,11 @@ implementation
 
 procedure TMap.FormActivate(Sender: TObject);
 begin
-try
-  if (SplashForm.stopped = false)then 
-    SplashForm.Show;
-except end;
+  try
+    if (SplashForm.stopped = false)then 
+      SplashForm.Show;
+  except 
+  end;
 end;
 
 procedure TMap.FormCreate(Sender: TObject);
@@ -58,38 +59,43 @@ begin
 end;
 
 procedure TMap.dispatchTest(Sender: TObject);
-var fl: string;
+var 
+  fl: string;
 begin
+
   if Created = false then
   begin
-  if (Sender is TBitBtn) then
-    fl := appData + 'Materials\' + (Sender as TBitBtn).Caption + '.txt';
-  if FileExists(fl) then
-  begin
-    Application.CreateForm(TForm1,Form1);
-    Form1.Show;
-  end
-  else
-    ShowMessage('Не найден такой файл!');
-  end
-  else
-  begin
-    try 
-      Form1.Show; 
-    except 
-      showmessage('Не могу отобразить форму');
-      exit;
-    end;
-  end;  //else
-  if (Sender is TBitBtn) then
+    if (Sender is TBitBtn) then  // our button is pressed
     begin
+      fl := appData + 'Materials\' + (Sender as TBitBtn).Caption + '.txt';
+
+      if FileExists(fl) then
+      begin
+        Application.CreateForm(TForm1,Form1);
+        Form1.Show;
+      end
+      else
+      begin
+        ShowMessage('Не найден такой файл!');
+        exit;
+      end;
+      
+      try 
+        Form1.Show; 
+      except 
+        showmessage('Не могу отобразить форму');
+        exit;
+      end; // try
       try
         Form1.setTheme((Sender as TBitBtn).Caption);
       except
         showMessage('Такого файла справки не найдено!');
       end; //try
-    end;//if
-end; //proc
+    
+    end; // if (Sender is TBitBtn) then  // our button is pressed
+  end; // if Created = false then 
+  
+end; // proc
 
 procedure TMap.BitBtn1Click(Sender: TObject);
 begin

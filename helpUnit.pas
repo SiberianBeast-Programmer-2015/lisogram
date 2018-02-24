@@ -15,7 +15,8 @@ const splashVideoName = 'splash.avi';
 implementation
 
 function isMaterialExists(material: string): boolean;
-var r1, r2: boolean;
+var 
+  r1, r2: boolean;
 begin
   if FileExists(appData + 'Materials\' + material + '.txt') then 
     r1 := true
@@ -55,6 +56,7 @@ begin
       r8 := false;
       ShowMessage('Нет файла видео предыстории!');
   end;
+
   Result := r1 And r2 and r3 and r4 and r5 and r6 and r7 and r8;
 end;
 
@@ -64,7 +66,8 @@ begin
 end;
 
 function getInfo(item: string):string;
-var pos: integer;
+var 
+  pos: integer;
 begin
   pos := AnsiPos(':',item);
   if (pos = 0) then 
@@ -73,9 +76,7 @@ begin
     exit;
   end
   else
-  begin
     Result := AnsiRightStr(item,StrLen(PChar(item))-pos);
-  end;
 end;
 
 function appPath(): string;

@@ -99,12 +99,18 @@ end;
 
 procedure TForm2.FormShow(Sender: TObject);
 begin
-  try Timer1.Enabled := true; except end;
+  try 
+    Timer1.Enabled := true; 
+  except 
+  end;
 end;
 
 procedure TForm2.FormHide(Sender: TObject);
 begin
-  try  Timer1.Enabled := false; except end;
+  try  
+    Timer1.Enabled := false; 
+  except 
+  end;
 end;
 
 end.

@@ -64,47 +64,38 @@ var
 implementation
 
 {$R *.dfm}
-{В каждом тесте сначала тема идет, потом === потом структурно. вот так:
-тема
-===
-вопрос:
-варианты
-правильныйответ
----
-вопрос:
-варианты
-ответ
-}
 
-procedure TForm1.readTest(testFile: string); // разделим на прочтение вопросов циклично
-var i,n: integer; element: string;
-begin
-  With Form1 do begin 
-    list := TStringList.Create;
-    list.LoadFromFile(testFile);
-
-    myThemeName := getInfo(list[0]);
-    ThemeLabel.Caption := myThemeName;
-
-    n := 1;
-    SetLength(tasks,n+1);
-    tasks[n] := TStringList.Create;
-    for i := 2 to list.count - 1 do
-    begin
-      element := Trim(list[i]);
-      if element = '---' then  // delimiter
-      begin
-        Inc(n);
-        SetLength(tasks,n+1);
-        tasks[n] := TStringList.Create;
-      end
-      else
-        tasks[n].Add(element);
-    end; 
-    list.Free;
-    list := nil;
-  end; //end with
 {на выходе имеем структурированный массив заданий}
+procedure TForm1.readTest(testFile: string); 
+var 
+  i,n: integer; 
+  element: string;
+begin
+  list := TStringList.Create;
+  list.LoadFromFile(testFile);
+
+  myThemeName := getInfo(list[0]);
+  ThemeLabel.Caption := myThemeName;
+  
+  // разделим на прочтение вопросов циклично
+  n := 1;
+  SetLength(tasks,n+1);
+  tasks[n] := TStringList.Create;
+  for i := 2 to list.count - 1 do
+  begin
+    element := Trim(list[i]);
+    if element = '---' then  // delimiter
+    begin
+      Inc(n);
+      SetLength(tasks,n+1);
+      tasks[n] := TStringList.Create;
+    end
+    else
+      tasks[n].Add(element);
+  end; 
+  
+  list.Free;
+  list := nil;
 end;
 
 procedure TForm1.loadTest(number: integer);
@@ -112,10 +103,12 @@ var i: integer;
     func,element: string;
 begin
   ThemeLabel.Caption := 'Тема: ' + myThemeName;
+
   for i := 0 to tasks[number].Count - 1 do
   begin
     func := getFunction(tasks[number][i]);
     element := getInfo(tasks[number][i]);
+
     if  func = 'тема' then
     begin
       ThemeLabel.Caption := 'Тема: ' + element;
@@ -129,6 +122,7 @@ begin
       QueryLabel.Top := 72; // default value from the form's designer
       TaskNumberLabel.Caption := 'Вопрос № ' + IntToStr(Form1.currTask);
     end;
+
     if func = 'вариант1' then 
     begin 
       Memo1.Lines.Add(element);
@@ -162,6 +156,7 @@ begin
     if func = 'правильныйвариантномер' then
       answer := element;
   end;
+
   if ContinueLabel.Caption = '' then 
     setQueryToCenter();
 end;
@@ -190,15 +185,20 @@ end;
 
 procedure TForm1.testIsFinished();
 begin
-  form1.ButtonCheck.Enabled := false;
-  ShowMessage('Тест пройден. Возвращаемся к карте');
-  Application.MainForm.Show;
-  form1.Close;
+  try
+    form1.ButtonCheck.Enabled := false;
+    ShowMessage('Тест пройден. Возвращаемся к карте');
+
+    Application.MainForm.Show;
+    form1.Close;
+  except
+  end; // try
 end;
 
 procedure TForm1.doIfRightAnswer();
 begin
-  form1.buttonHelp.Visible := false;
+  buttonHelp.Visible := false;
+  
   if currTask = Length(tasks) - 1 then
   begin
     testIsFinished();
@@ -206,13 +206,14 @@ begin
   end
   else
     Inc(currTask);
+    
   cleanFields;
   loadTest(currTask);
 end;
 
 procedure TForm1.doIfFalseAnswer();
 begin
-  Form1.buttonHelp.Visible := true;
+  buttonHelp.Visible := true;
   ShowMessage('Ответ неверен, обратитесь к справке');
 end;
 
@@ -225,16 +226,19 @@ begin
 end;
 
 procedure TForm1.buttonHelpClick(Sender: TObject);
+var 
+  flName: string;
 begin
-  if FileExists(appData + 'Materials\' + Trim(myThemeName) + '.rtf') then
+  flName := appData + 'Materials\' + Trim(myThemeName) + '.rtf';
+
+  if FileExists(flName) then
   begin
     Application.CreateForm(TForm2,Form2);
     Form2.Show;
-    Form2.setThemeName(myThemeName);
+    Form2.setThemeName(Trim(myThemeName));
   end
   else
-    ShowMessage('нет такого файла справки! ' + #10#13 + 
-    appData + 'Materials\' + Trim(myThemeName) + '.rtf');
+    ShowMessage('нет такого файла справки! ' + #10#13 + flName);
 end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);
@@ -242,9 +246,7 @@ begin
   try
     Inc(i);
     if (i mod 2 = 0) then
-    begin
       PicShow1.BgPicture.LoadFromFile(appdata + 'lis\lis3.bmp');
-    end;
     if (i mod 3 = 0) then 
       PicShow1.BgPicture.LoadFromFile(appData + 'lis\lis2.bmp');
     if (i mod 4 = 0) then
@@ -289,10 +291,10 @@ end;
 
 procedure TForm1.setTheme(themeName: string);
 begin
-  myThemeName := themeName;
+  myThemeName := Trim(themeName);
   currTask := 1;
-  readTest(appData + 'Materials\' + themeName + '.txt'); // whole test to read
-  loadTest(currTask); // show the first test
+  readTest(appData + 'Materials\' + myThemeName + '.txt'); // whole test to read
+  loadTest(currTask); // показать первое задание
 end;
 
 procedure TForm1.setQueryToCenter;
